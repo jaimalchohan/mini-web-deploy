@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClassLibrary1
+﻿namespace BitDeploy
 {
     public interface IFactory
     {
         void SetSiteName(string siteName);
         void SetAutoStart(bool autoStart);
+        void SetAppPool(string appPoolName);
     }
 }

@@ -1,11 +1,4 @@
-﻿using ClassLibrary1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConsoleApplication1
+﻿namespace BitDeploy.Deployer
 {
     public class Factory : IFactory
     {
@@ -13,15 +6,32 @@ namespace ConsoleApplication1
 
         public string SiteName { get; private set; }
         public bool AutoStart { get { return _autoStart; } }
+        public string AppPoolName { get; private set; }
+        public string SitePath { get; private set; }
+
+        public Factory(string sitePath)
+        {
+            SitePath = sitePath;
+        }
 
         public void SetSiteName(string siteName)
         {
             SiteName = siteName;
         }
 
+        public void SetSitePath(string sitePath)
+        {
+            SitePath = sitePath;
+        }
+
         public void SetAutoStart(bool autoStart)
         {
             _autoStart = autoStart;
+        }
+
+        public void SetAppPool(string appPoolName)
+        {
+            AppPoolName = appPoolName;
         }
     }
 }

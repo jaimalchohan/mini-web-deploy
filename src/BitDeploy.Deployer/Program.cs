@@ -1,21 +1,17 @@
-﻿using ClassLibrary1;
-using Microsoft.Web.Administration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace BitDeploy.Deployer
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var path = args[0];
-            path = Path.Combine(path, "bin");
+            var scanSitePath = args[0];
+            var path = Path.Combine(scanSitePath, "bin");
 
             var binaries = Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
 
@@ -43,7 +39,7 @@ namespace ConsoleApplication1
                 {
                     var ass = Assembly.LoadFrom(Path.Combine(path, binaryPath));
                     var instance = ass.CreateInstance(t.FullName);
-                    f = new Factory();
+                    f = new Factory(scanSitePath);
                     instance.GetType().InvokeMember("Install", BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.Public, null, instance, new[] { f });
                     break;
                 }
@@ -51,17 +47,9 @@ namespace ConsoleApplication1
 
             if(f != null)
             {
-                DoInstall(f, args[0]);
+                var deployer = new SiteDeployer(f);
+                deployer.Deploy();
             }
-        }
-
-        public static void DoInstall(Factory f, string path)
-        {
-            var serverManager = new ServerManager();
-            var mySite = serverManager.Sites.Add(f.SiteName, path, 80);
-            mySite.ServerAutoStart = f.AutoStart;
-            serverManager.CommitChanges();
-
         }
     }
 }

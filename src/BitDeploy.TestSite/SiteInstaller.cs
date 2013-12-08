@@ -1,16 +1,13 @@
-﻿using ClassLibrary1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BitDeploy;
 
-namespace WebApplication1
+namespace BitDeploy.TestSite
 {
     public class SiteInstaller : ISiteInstaller
     {
         public void Install(IFactory x)
         {
-            x.SetSiteName("jaimal");
+            x.SetSiteName("BitDeploy");
+            x.SetAppPool("MyAppPool");
             x.SetAutoStart(false);
         }
     }
