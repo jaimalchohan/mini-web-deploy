@@ -37,7 +37,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAppPoolFactory.cs" />
     <Compile Include="IFactory.cs" />
+    <Compile Include="ILogFileFactory.cs" />
+    <Compile Include="ISiteFactory.cs" />
     <Compile Include="ISiteInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

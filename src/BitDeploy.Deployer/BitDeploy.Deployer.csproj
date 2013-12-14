@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binding.cs" />
     <Compile Include="SiteDeployer.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Program.cs" />

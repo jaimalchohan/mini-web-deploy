@@ -2,8 +2,9 @@
 {
     public interface IFactory
     {
-        void SetSiteName(string siteName);
-        void SetAutoStart(bool autoStart);
-        void SetAppPool(string appPoolName);
+        ISiteFactory WithSiteName(string siteName);
+        IAppPoolFactory WithAppPool(string appPoolName);
+        ILogFileFactory WithLogFile();
+        void WithDirectory(string directory);
     }
 }
