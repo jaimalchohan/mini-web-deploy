@@ -3,7 +3,7 @@
     public class NoInstallationFound : ConfiguredInstallationManifest
     {
         public NoInstallationFound() 
-            : base(null, null, null)
+            : base(null, null, null, null)
         {
         }
     }
