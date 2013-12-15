@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAppPoolFactory.cs" />
-    <Compile Include="IFactory.cs" />
+    <Compile Include="IInstallationConfiguration.cs" />
     <Compile Include="ILogFileFactory.cs" />
     <Compile Include="ISiteFactory.cs" />
     <Compile Include="ISiteInstaller.cs" />

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
+using BitDeploy.Deployer.Features.Discovery;
+using BitDeploy.Deployer.Features.Installation;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 
 namespace BitDeploy.Deployer
 {
@@ -10,45 +10,18 @@ namespace BitDeploy.Deployer
     {
         static void Main(string[] args)
         {
-            var scanSitePath = args[0];
-            var path = Path.Combine(scanSitePath, "bin");
+            var unpackedDirectory = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
+            var pathScanner = new PathScanner(unpackedDirectory);
+            var deploymentManifest = pathScanner.FindFirstAvailableInstaller();
 
-            var binaries = Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
-
-            Factory f = null;
-
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += delegate(object sender, ResolveEventArgs rargs)
+            if (deploymentManifest is NoInstallationFound)
             {
-                try
-                {
-                    return Assembly.ReflectionOnlyLoadFrom(Path.Combine(path, rargs.Name.Split(',')[0] + ".dll"));
-                }
-                catch (FileNotFoundException)
-                {
-                    return Assembly.ReflectionOnlyLoad(rargs.Name);
-                }
-            };
-
-            foreach (var binaryPath in binaries)
-            {
-                var assembly = Assembly.ReflectionOnlyLoadFrom(Path.Combine(path, binaryPath));
-                
-                var t = assembly.GetTypes().SingleOrDefault(x => x.GetInterfaces().Select(y => y.AssemblyQualifiedName).Contains(typeof(ISiteInstaller).AssemblyQualifiedName));
-
-                if(t != null)
-                {
-                    var ass = Assembly.LoadFrom(Path.Combine(path, binaryPath));
-                    var instance = ass.CreateInstance(t.FullName);
-                    f = new Factory(scanSitePath);
-                    instance.GetType().InvokeMember("Install", BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.Public, null, instance, new[] { f });
-                    break;
-                }
+                Environment.Exit((int)ExitCodes.NoInstallationPerformed);
             }
 
-            if(f != null)
+            using (var serverManager = new ServerManagerWrapper())
             {
-                var deployer = new SiteDeployer(f);
-                deployer.Deploy();
+                new SiteDeployer(serverManager, deploymentManifest.InstallationConfiguration).Deploy();
             }
         }
     }

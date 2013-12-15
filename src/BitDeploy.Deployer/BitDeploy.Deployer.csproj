@@ -35,8 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,11 +47,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binding.cs" />
-    <Compile Include="SiteDeployer.cs" />
-    <Compile Include="Factory.cs" />
+    <Compile Include="Features\Discovery\AssemblyDetails.cs" />
+    <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\IDiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\NoInstallationFound.cs" />
+    <Compile Include="Features\Installation\Installation\Binding.cs" />
+    <Compile Include="Features\Discovery\ConfiguredInstallationManifest.cs" />
+    <Compile Include="ExitCodes.cs" />
+    <Compile Include="Features\Discovery\IFindSiteInstallers.cs" />
+    <Compile Include="Features\Discovery\PathScanner.cs" />
+    <Compile Include="Features\Installation\ConfigurationTaskList.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigurationTaskBase.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAdditionalDirectories.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureLogging.cs" />
+    <Compile Include="Features\Installation\Configuration\IConfigurationTask.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPool.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureBindings.cs" />
+    <Compile Include="Features\Installation\Installation\CreateSite.cs" />
+    <Compile Include="Features\Installation\PreInstallationTaskList.cs" />
+    <Compile Include="Features\Installation\PreInstallation\DeleteExistingSite.cs" />
+    <Compile Include="Features\Installation\PreInstallation\IPreInstallationTask.cs" />
+    <Compile Include="Features\Installation\PreInstallation\PreInstallationTaskBase.cs" />
+    <Compile Include="Features\Installation\SiteDeployer.cs" />
+    <Compile Include="Features\Installation\InstallationConfiguration.cs" />
+    <Compile Include="Infrastructure\IIS7Plus\IServerManager.cs" />
+    <Compile Include="Infrastructure\IIS7Plus\ServerManagerWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Features\Discovery\SiteInstallerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

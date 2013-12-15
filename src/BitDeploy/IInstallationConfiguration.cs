@@ -1,6 +1,6 @@
 ﻿namespace BitDeploy
 {
-    public interface IFactory
+    public interface IInstallationConfiguration
     {
         ISiteFactory WithSiteName(string siteName);
         IAppPoolFactory WithAppPool(string appPoolName);

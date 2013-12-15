@@ -1,10 +1,10 @@
-﻿namespace BitDeploy.Deployer
+﻿namespace BitDeploy.Deployer.Features.Installation.Installation
 {
     public class Binding
     {
-        private string _ipAddress = "*";
-        private string _protocol = "http";
-        private int? _port = null;
+        private readonly string _ipAddress = "*";
+        private const string _protocol = "http";
+        private int? _port;
 
         public string Protocol { get { return _protocol; } }
         public string Host { get; private set; }
