@@ -32,7 +32,7 @@ namespace BitDeploy.Deployer.Features.Discovery
                     binariesWithInstallersInThem.Add(new AssemblyDetails(path, binaryPath));
                 }
             }
-            
+
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= AssemblyScanErrorHandler;
 
             return binariesWithInstallersInThem;
