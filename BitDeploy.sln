@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{77847D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitDeploy.Deployer.Tests", "src\BitDeploy.Deployer.Tests\BitDeploy.Deployer.Tests.csproj", "{776B9A4C-1E36-4871-872E-31200F42E186}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{67CA0992-465E-496D-961D-0B090BFA85C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67CA0992-465E-496D-961D-0B090BFA85C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67CA0992-465E-496D-961D-0B090BFA85C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{776B9A4C-1E36-4871-872E-31200F42E186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{776B9A4C-1E36-4871-872E-31200F42E186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{776B9A4C-1E36-4871-872E-31200F42E186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{776B9A4C-1E36-4871-872E-31200F42E186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

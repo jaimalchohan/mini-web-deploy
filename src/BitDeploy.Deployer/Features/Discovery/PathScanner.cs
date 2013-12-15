@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
 using BitDeploy.Deployer.Features.Installation;
 
 namespace BitDeploy.Deployer.Features.Discovery
@@ -10,22 +10,24 @@ namespace BitDeploy.Deployer.Features.Discovery
 
         private readonly string _scanSitePath;
         private readonly IDiscoverAssembliesThatHaveInstallers _assemblyDiscoverer;
+        private readonly ILoadAnAssembly _assemblyLoader;
 
         public PathScanner(string scanSitePath)
-            : this(scanSitePath, new DiscoverAssembliesThatHaveInstallers())
+            : this(scanSitePath, new DiscoverAssembliesThatHaveInstallers(), new LoadAnAssembly())
         {
         }
 
-        public PathScanner(string scanSitePath, IDiscoverAssembliesThatHaveInstallers assemblyDiscoverer)
+        public PathScanner(string scanSitePath, IDiscoverAssembliesThatHaveInstallers assemblyDiscoverer, ILoadAnAssembly assemblyLoader)
         {
             _scanSitePath = scanSitePath;
             _assemblyDiscoverer = assemblyDiscoverer;
+            _assemblyLoader = assemblyLoader;
             Path = System.IO.Path.Combine(scanSitePath, "bin");
         }
 
         public ConfiguredInstallationManifest FindFirstAvailableInstaller()
         {
-            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(Path);
+            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(Path) ?? new List<AssemblyDetails>();
             var firstInstaller = assembliesWithInstallers.FirstOrDefault();
             
             if (firstInstaller == null)
@@ -33,11 +35,11 @@ namespace BitDeploy.Deployer.Features.Discovery
                 return new NoInstallationFound();
             }
             
-            var assemblyWithSiteInstaller = Assembly.LoadFrom(System.IO.Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
-            var siteInstaller = assemblyWithSiteInstaller.CreateInstance(assemblyWithSiteInstaller.FullName) as ISiteInstaller;
+            var assemblyWithSiteInstaller = _assemblyLoader.Load(System.IO.Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
+            var siteInstaller = assemblyWithSiteInstaller.CreateInstance(firstInstaller.InstallerType.FullName, true);
             var configuration = new InstallationConfiguration(_scanSitePath);
 
-            return new ConfiguredInstallationManifest(configuration, siteInstaller, _scanSitePath);
+            return new ConfiguredInstallationManifest(configuration, (ISiteInstaller)siteInstaller, _scanSitePath);
         }
     }
 }

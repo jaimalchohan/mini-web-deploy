@@ -29,7 +29,7 @@ namespace BitDeploy.Deployer.Features.Discovery
 
                 if (singleInstanceOfASiteInstallerInAllLoadedAssemblies != null)
                 {
-                    binariesWithInstallersInThem.Add(new AssemblyDetails(path, binaryPath));
+                    binariesWithInstallersInThem.Add(new AssemblyDetails(path, binaryPath, singleInstanceOfASiteInstallerInAllLoadedAssemblies));
                 }
             }
 

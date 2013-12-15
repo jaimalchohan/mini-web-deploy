@@ -50,6 +50,8 @@
     <Compile Include="Features\Discovery\AssemblyDetails.cs" />
     <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallers.cs" />
     <Compile Include="Features\Discovery\IDiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\ILoadAnAssembly.cs" />
+    <Compile Include="Features\Discovery\LoadAnAssembly.cs" />
     <Compile Include="Features\Discovery\NoInstallationFound.cs" />
     <Compile Include="Features\Installation\Installation\Binding.cs" />
     <Compile Include="Features\Discovery\ConfiguredInstallationManifest.cs" />
