@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 using BitDeploy.Deployer.Features.Installation;
@@ -11,55 +9,35 @@ namespace BitDeploy.Deployer.Features.Discovery
     {
         private readonly string _scanSitePath;
         private readonly string _path;
+        private readonly DiscoverAssembliesThatHaveInstallers _assemblyDiscoverer;
 
         public PathScanner(string scanSitePath)
+            : this(scanSitePath, new DiscoverAssembliesThatHaveInstallers())
+        {
+        }
+
+        public PathScanner(string scanSitePath, DiscoverAssembliesThatHaveInstallers assemblyDiscoverer)
         {
             _scanSitePath = scanSitePath;
+            _assemblyDiscoverer = assemblyDiscoverer;
             _path = Path.Combine(scanSitePath, "bin");
         }
 
-        public IList<ConfiguredInstallationManifest> DiscoverManifests()
+        public ConfiguredInstallationManifest FindFirstAvailableInstaller()
         {
-            var installers = new List<ConfiguredInstallationManifest>();
-
-            var binaries = Directory.EnumerateFiles(_path, "*.dll", SearchOption.TopDirectoryOnly);
+            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(_path);
+            var firstInstaller = assembliesWithInstallers.FirstOrDefault();
             
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (sender, rargs) =>
+            if (firstInstaller == null)
             {
-                try
-                {
-                    return Assembly.ReflectionOnlyLoadFrom(Path.Combine(_path, rargs.Name.Split(',')[0] + ".dll"));
-                }
-                catch (FileNotFoundException)
-                {
-                    return Assembly.ReflectionOnlyLoad(rargs.Name);
-                }
-            };
-
-            foreach (var binaryPath in binaries)
-            {
-                var assembly = Assembly.ReflectionOnlyLoadFrom(Path.Combine(_path, binaryPath));
-                
-                var singleInstanceOfASiteInstallerInAllLoadedAssemblies =
-                    assembly.GetTypes().SingleOrDefault(x =>x.GetInterfaces()
-                                    .Select(y => y.AssemblyQualifiedName)
-                                    .Contains(typeof (ISiteInstaller).AssemblyQualifiedName));
-
-                if (singleInstanceOfASiteInstallerInAllLoadedAssemblies == null)
-                {
-                    continue;
-                }
-
-                var assemblyWithSiteInstaller = Assembly.LoadFrom(Path.Combine(_path, binaryPath));
-                var siteInstaller = assemblyWithSiteInstaller.CreateInstance(singleInstanceOfASiteInstallerInAllLoadedAssemblies.FullName) as ISiteInstaller;
-                var configuration = new InstallationConfiguration(_scanSitePath);
-                var configuredManifest = new ConfiguredInstallationManifest(configuration, siteInstaller, _scanSitePath);
-
-                installers.Add(configuredManifest);
-                break;
+                return new NoInstallationFound();
             }
+            
+            var assemblyWithSiteInstaller = Assembly.LoadFrom(Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
+            var siteInstaller = assemblyWithSiteInstaller.CreateInstance(assemblyWithSiteInstaller.FullName) as ISiteInstaller;
+            var configuration = new InstallationConfiguration(_scanSitePath);
 
-            return new List<ConfiguredInstallationManifest>();
+            return new ConfiguredInstallationManifest(configuration, siteInstaller, _scanSitePath);
         }
     }
 }

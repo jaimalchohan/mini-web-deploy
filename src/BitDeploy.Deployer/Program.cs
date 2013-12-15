@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using BitDeploy.Deployer.Features.Discovery;
 using BitDeploy.Deployer.Features.Installation;
 
@@ -10,9 +9,9 @@ namespace BitDeploy.Deployer
         static void Main(string[] args)
         {
             var pathScanner = new PathScanner(args[0]);
-            var deploymentManifest = pathScanner.DiscoverManifests().FirstOrDefault();
+            var deploymentManifest = pathScanner.FindFirstAvailableInstaller();
 
-            if (deploymentManifest == null)
+            if (deploymentManifest is NoInstallationFound)
             {
                 Environment.Exit((int)ExitCodes.NoInstallationPerformed);
             }
