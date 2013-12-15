@@ -15,20 +15,22 @@ namespace BitDeploy.Deployer.Features.Installation.ConfigurationTasks
         {
             site.LogFile.Directory = NewOrOriginal(configuration.LogFileDirectory, site.LogFile.Directory);
 
-            if (configuration.LogFileCreateDirectoryWithElevatedPermissions)
+            if (!configuration.LogFileCreateDirectoryWithElevatedPermissions)
             {
-                if (!Directory.Exists(site.LogFile.Directory))
-                {
-                    Directory.CreateDirectory(site.LogFile.Directory);
-                }
-                else
-                {
-                    var account = new NTAccount(WindowsIdentity.GetCurrent().Name);
-                    var existingDirectory = new DirectoryInfo(site.LogFile.Directory);
-                    var existingDirectorySecurity = existingDirectory.GetAccessControl();
-                    existingDirectorySecurity.SetOwner(account);
-                    existingDirectory.SetAccessControl(existingDirectorySecurity);
-                }
+                return;
+            }
+
+            if (!Directory.Exists(site.LogFile.Directory))
+            {
+                Directory.CreateDirectory(site.LogFile.Directory);
+            }
+            else
+            {
+                var account = new NTAccount(WindowsIdentity.GetCurrent().Name);
+                var existingDirectory = new DirectoryInfo(site.LogFile.Directory);
+                var existingDirectorySecurity = existingDirectory.GetAccessControl();
+                existingDirectorySecurity.SetOwner(account);
+                existingDirectory.SetAccessControl(existingDirectorySecurity);
             }
         }
 
