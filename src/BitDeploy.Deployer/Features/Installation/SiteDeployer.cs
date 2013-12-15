@@ -1,7 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Security.Principal;
+﻿using System.Collections.Generic;
+using BitDeploy.Deployer.Features.Installation.ConfigurationTasks;
+using BitDeploy.Deployer.Features.Installation.PreInstallationTasks;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation
@@ -19,103 +18,33 @@ namespace BitDeploy.Deployer.Features.Installation
         {
             using (var serverManager = new ServerManager())
             {
-
-                if(_installationConfiguration.SiteDeleteExisting)
-                {
-                    var existingSite = serverManager.Sites.SingleOrDefault(x => x.Name.Equals(_installationConfiguration.SiteName, StringComparison.InvariantCultureIgnoreCase));
-
-                    if(existingSite != null)
-                    {
-                        serverManager.Sites.Remove(existingSite);
-                    }
-                }
-
-                var mySite = serverManager.Sites.Add(_installationConfiguration.SiteName, _installationConfiguration.SitePath, 80);
-                mySite.ServerAutoStart = _installationConfiguration.SiteAutoStart;
-
-                if (!string.IsNullOrEmpty(_installationConfiguration.AppPoolName))
-                {
-                    if (_installationConfiguration.AppPoolDeleteExisting)
-                    {
-                        var existingAppPool = serverManager.ApplicationPools.SingleOrDefault(x => x.Name.Equals(_installationConfiguration.AppPoolName, StringComparison.InvariantCultureIgnoreCase));
-                        serverManager.ApplicationPools.Remove(existingAppPool);
-                    }
-
-                    mySite.ApplicationDefaults.ApplicationPoolName = _installationConfiguration.AppPoolName;
-
-                    ConfigureAppPoolIfNotExists(serverManager);
-                }
-
-                ConfigureBindings(mySite);
-                ConfigureLogging(mySite);
-                ConfigureAdditionalDirectories();
-
-                serverManager.CommitChanges();
+                Deploy(serverManager);
             }
-        } 
+        }
 
-        public void ConfigureAppPoolIfNotExists(ServerManager serverManager)
+        public void Deploy(ServerManager serverManager)
         {
-            var existingPool = serverManager.ApplicationPools.SingleOrDefault(x => x.Name.Equals(_installationConfiguration.AppPoolName));
-
-            if (existingPool == null)
+            new List<IPreInstallationTask>
             {
-                var newPool = serverManager.ApplicationPools.Add(_installationConfiguration.AppPoolName);
-                newPool.ManagedRuntimeVersion = string.IsNullOrEmpty(_installationConfiguration.AppPoolManagedRuntimeVersion) 
-                    ? newPool.ManagedRuntimeVersion
-                    : _installationConfiguration.AppPoolManagedRuntimeVersion;
-                newPool.SetAttributeValue("startMode", 1);
+                new DeleteExistingSite(serverManager),
             }
-        }
-
-        private void ConfigureBindings(Site mySite)
-        {
-            if(_installationConfiguration.Bindings.Any())
+            .ForEach(x=>x.BeforeInstallation(_installationConfiguration));
+            
+            var installedSite = serverManager.Sites.Add(_installationConfiguration.SiteName, _installationConfiguration.SitePath, 80);
+            installedSite.ServerAutoStart = _installationConfiguration.SiteAutoStart;
+            
+            new List<IConfigurationTask>
             {
-                mySite.Bindings.Clear();
-                
-                foreach(var binding in _installationConfiguration.Bindings)
-                {
-                    var b  = mySite.Bindings.CreateElement();
-                    b.Protocol = binding.Protocol;
-                    b.BindingInformation = string.Format("{0}:{1}:{2}", binding.IPAddress, binding.Port, binding.Host);
-                    mySite.Bindings.Add(b);
-                }
+                new ConfigureAppPool(serverManager),
+                new ConfigureBindings(serverManager),
+                new ConfigureLogging(serverManager),
+                new ConfigureAdditionalDirectories(serverManager)
             }
-        }
+            .ForEach(x => x.ConfigureInstalledSite(installedSite, _installationConfiguration));
 
-        private void ConfigureLogging(Site mySite)
-        {
-            mySite.LogFile.Directory = NewOrOriginal(_installationConfiguration.LogFileDirectory, mySite.LogFile.Directory);
-
-            if(_installationConfiguration.LogFileCreateDirectoryWithElevatedPermissions)
-            {
-                if (!Directory.Exists(mySite.LogFile.Directory))
-                {
-                    Directory.CreateDirectory(mySite.LogFile.Directory);
-                }
-                else 
-                { 
-                    var account = new NTAccount(WindowsIdentity.GetCurrent().Name);
-                    var existingDirectory = new DirectoryInfo(mySite.LogFile.Directory);
-                    var existingDirectorySecurity = existingDirectory.GetAccessControl();
-                    existingDirectorySecurity.SetOwner(account);
-                    existingDirectory.SetAccessControl(existingDirectorySecurity);
-                }       
-            }
+            serverManager.CommitChanges();
         }
+  
 
-        private void ConfigureAdditionalDirectories()
-        {
-            foreach (var directory in _installationConfiguration.AdditionalDirectories)
-            {
-                Directory.CreateDirectory(directory);
-            }
-        }
-
-        private string NewOrOriginal(string newValue, string oldValue)
-        {
-            return string.IsNullOrEmpty(newValue) ? oldValue : newValue;
-        }
     }
 }
