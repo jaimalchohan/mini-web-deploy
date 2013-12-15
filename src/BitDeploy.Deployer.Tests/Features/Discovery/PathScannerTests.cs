@@ -62,6 +62,19 @@ namespace BitDeploy.Deployer.Tests.Features.Discovery
         }
 
         [Test]
+        public void FindFirstAvailableInstaller_MultipleAssembliesFound_ReturnsManifestForFirstOne()
+        {
+            var expectedAssembly = new AssemblyDetails("c:\\path", "expect.this.dll", typeof (TestInstaller));
+            var shouldNotCreate = new AssemblyDetails("c:\\path", "do.not.expect.this.dll", typeof (TestInstaller));
+            _discoverer.Setup(x => x.FindAssemblies(It.IsAny<string>())).Returns(new List<AssemblyDetails> { expectedAssembly, shouldNotCreate });
+            _loader.Setup(x => x.Load("c:\\path\\expect.this.dll")).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
+
+            var manifest = _pathScanner.FindFirstAvailableInstaller();
+
+            Assert.That(manifest.DiscoveredDetails, Is.EqualTo(expectedAssembly));
+        }
+
+        [Test]
         public void FindFirstAvailableInstaller_AssemblyFound_ReturnsConfiguredManifestForAssembly()
         {
             var foundAssembly = new AssemblyDetails("c:\\path", "binary.dll", typeof(TestInstaller));
@@ -72,7 +85,7 @@ namespace BitDeploy.Deployer.Tests.Features.Discovery
 
             Assert.That(manifest.InstallationConfiguration, Is.Not.Null);
             Assert.That(manifest.Path, Is.EqualTo(_siteScanPath));
-            Assert.That(manifest.SourceInstaller, Is.Not.Null);
+            Assert.That(manifest.SourceInstaller, Is.InstanceOf<ISiteInstaller>());
         }
     }
 }

@@ -39,7 +39,7 @@ namespace BitDeploy.Deployer.Features.Discovery
             var siteInstaller = assemblyWithSiteInstaller.CreateInstance(firstInstaller.InstallerType.FullName, true);
             var configuration = new InstallationConfiguration(_scanSitePath);
 
-            return new ConfiguredInstallationManifest(configuration, (ISiteInstaller)siteInstaller, _scanSitePath);
+            return new ConfiguredInstallationManifest(configuration, (ISiteInstaller)siteInstaller, _scanSitePath, firstInstaller);
         }
     }
 }
