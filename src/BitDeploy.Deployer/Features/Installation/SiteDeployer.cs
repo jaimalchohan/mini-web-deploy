@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using BitDeploy.Deployer.Features.Installation.ConfigurationTasks;
+﻿using BitDeploy.Deployer.Features.Installation.ConfigurationTasks;
 using BitDeploy.Deployer.Features.Installation.PreInstallationTasks;
 using Microsoft.Web.Administration;
 
@@ -24,27 +23,25 @@ namespace BitDeploy.Deployer.Features.Installation
 
         public void Deploy(ServerManager serverManager)
         {
-            new List<IPreInstallationTask>
+            new PreInstallationTaskList
             {
                 new DeleteExistingSite(serverManager),
             }
-            .ForEach(x=>x.BeforeInstallation(_installationConfiguration));
+            .PerformTasks(_installationConfiguration);
             
-            var installedSite = serverManager.Sites.Add(_installationConfiguration.SiteName, _installationConfiguration.SitePath, 80);
-            installedSite.ServerAutoStart = _installationConfiguration.SiteAutoStart;
-            
-            new List<IConfigurationTask>
+            var site = serverManager.Sites.Add(_installationConfiguration.SiteName, _installationConfiguration.SitePath, 80);
+            site.ServerAutoStart = _installationConfiguration.SiteAutoStart;
+
+            new ConfigurationTaskList
             {
                 new ConfigureAppPool(serverManager),
                 new ConfigureBindings(serverManager),
                 new ConfigureLogging(serverManager),
                 new ConfigureAdditionalDirectories(serverManager)
             }
-            .ForEach(x => x.ConfigureInstalledSite(installedSite, _installationConfiguration));
+            .Configure(site, _installationConfiguration);
 
             serverManager.CommitChanges();
         }
-  
-
     }
 }

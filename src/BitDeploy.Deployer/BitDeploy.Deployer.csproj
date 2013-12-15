@@ -56,12 +56,14 @@
     <Compile Include="ExitCodes.cs" />
     <Compile Include="Features\Discovery\IFindSiteInstallers.cs" />
     <Compile Include="Features\Discovery\PathScanner.cs" />
+    <Compile Include="Features\Installation\ConfigurationTaskList.cs" />
     <Compile Include="Features\Installation\ConfigurationTasks\ConfigurationTaskBase.cs" />
     <Compile Include="Features\Installation\ConfigurationTasks\ConfigureAdditionalDirectories.cs" />
     <Compile Include="Features\Installation\ConfigurationTasks\ConfigureLogging.cs" />
     <Compile Include="Features\Installation\ConfigurationTasks\IConfigurationTask.cs" />
     <Compile Include="Features\Installation\ConfigurationTasks\ConfigureAppPool.cs" />
     <Compile Include="Features\Installation\ConfigurationTasks\ConfigureBindings.cs" />
+    <Compile Include="Features\Installation\PreInstallationTaskList.cs" />
     <Compile Include="Features\Installation\PreInstallationTasks\DeleteExistingSite.cs" />
     <Compile Include="Features\Installation\PreInstallationTasks\IPreInstallationTask.cs" />
     <Compile Include="Features\Installation\PreInstallationTasks\PreInstallationTaskBase.cs" />
