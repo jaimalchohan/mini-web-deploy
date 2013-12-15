@@ -2,6 +2,7 @@
 using System.IO;
 using BitDeploy.Deployer.Features.Discovery;
 using BitDeploy.Deployer.Features.Installation;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 
 namespace BitDeploy.Deployer
 {
@@ -18,7 +19,10 @@ namespace BitDeploy.Deployer
                 Environment.Exit((int)ExitCodes.NoInstallationPerformed);
             }
 
-            new SiteDeployer(deploymentManifest.InstallationConfiguration).Deploy();
+            using (var serverManager = new ServerManagerWrapper())
+            {
+                new SiteDeployer(serverManager, deploymentManifest.InstallationConfiguration).Deploy();
+            }
         }
     }
 }

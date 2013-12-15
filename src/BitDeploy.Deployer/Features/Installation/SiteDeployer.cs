@@ -7,44 +7,41 @@ namespace BitDeploy.Deployer.Features.Installation
 {
     public class SiteDeployer
     {
+        private readonly IServerManager _serverManager;
         private readonly InstallationConfiguration _installationConfiguration;
+       
+        private readonly PreInstallationTaskList _preInstall;
+        private readonly CreateSite _installation;
+        private readonly ConfigurationTaskList _configuration;
 
-        public SiteDeployer(InstallationConfiguration installationConfiguration)
+        public SiteDeployer(IServerManager serverManager, InstallationConfiguration installationConfiguration)
         {
+            _serverManager = serverManager;
             _installationConfiguration = installationConfiguration;
+
+            _preInstall = new PreInstallationTaskList
+            {
+                new DeleteExistingSite(_serverManager),
+            };
+
+            _installation = new CreateSite(_serverManager);
+
+            _configuration = new ConfigurationTaskList
+            {
+                new ConfigureAppPool(_serverManager),
+                new ConfigureBindings(_serverManager),
+                new ConfigureLogging(_serverManager),
+                new ConfigureAdditionalDirectories(_serverManager)
+            };
         }
 
         public void Deploy()
         {
-            using (var serverManager = new ServerManagerWrapper())
-            {
-                var preInstall = new PreInstallationTaskList
-                {
-                    new DeleteExistingSite(serverManager),
-                };
+            _preInstall.PerformTasks(_installationConfiguration);
+            var site = _installation.Install(_installationConfiguration);
+            _configuration.Configure(site, _installationConfiguration);
 
-                var installation = new CreateSite(serverManager);
-
-                var configuration = new ConfigurationTaskList
-                {
-                    new ConfigureAppPool(serverManager),
-                    new ConfigureBindings(serverManager),
-                    new ConfigureLogging(serverManager),
-                    new ConfigureAdditionalDirectories(serverManager)
-                };
-
-                Execute(preInstall, installation, configuration);
-                serverManager.CommitChanges();
-            }
-        }
-
-        public void Execute(PreInstallationTaskList preInstall, CreateSite installation, ConfigurationTaskList configuration)
-        {
-            preInstall.PerformTasks(_installationConfiguration);
-            
-            var site = installation.Install(_installationConfiguration);
-            
-            configuration.Configure(site, _installationConfiguration);
+            _serverManager.CommitChanges();
         }
     }
 }
