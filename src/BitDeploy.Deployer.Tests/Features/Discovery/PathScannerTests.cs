@@ -72,7 +72,7 @@ namespace BitDeploy.Deployer.Tests.Features.Discovery
 
             Assert.That(manifest.InstallationConfiguration, Is.Not.Null);
             Assert.That(manifest.Path, Is.EqualTo(_siteScanPath));
-            Assert.That(manifest.SourceInstaller, Is.Not.Null);
+            Assert.That(manifest.SourceInstaller, Is.InstanceOf<ISiteInstaller>());
         }
     }
 }
