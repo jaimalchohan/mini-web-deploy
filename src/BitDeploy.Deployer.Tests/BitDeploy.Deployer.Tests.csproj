@@ -53,11 +53,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\BitDeploy.Deployer\BitDeploy.Deployer.csproj">
+    <ProjectReference Include="..\BitDeploy.Deployer\BitDeploy.Deployer.csproj">
       <Project>{67CA0992-465E-496D-961D-0B090BFA85C3}</Project>
       <Name>BitDeploy.Deployer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\BitDeploy\BitDeploy.csproj">
+    <ProjectReference Include="..\BitDeploy\BitDeploy.csproj">
       <Project>{B6898B90-6329-475C-A256-4E6494E943CF}</Project>
       <Name>BitDeploy</Name>
     </ProjectReference>

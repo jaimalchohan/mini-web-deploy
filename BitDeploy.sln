@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{77847D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitDeploy.Deployer.Tests", "BitDeploy.Deployer.Tests\BitDeploy.Deployer.Tests.csproj", "{776B9A4C-1E36-4871-872E-31200F42E186}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitDeploy.Deployer.Tests", "src\BitDeploy.Deployer.Tests\BitDeploy.Deployer.Tests.csproj", "{776B9A4C-1E36-4871-872E-31200F42E186}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
