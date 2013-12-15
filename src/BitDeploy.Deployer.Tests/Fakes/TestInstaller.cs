@@ -6,6 +6,10 @@ namespace BitDeploy.Deployer.Tests.Fakes
     {
         private readonly Action<IInstallationConfiguration> _setupFake;
 
+        public TestInstaller()
+        {
+        }
+
         public TestInstaller(Action<IInstallationConfiguration> setupFake = null)
         {
             _setupFake = setupFake ?? (_ => { });

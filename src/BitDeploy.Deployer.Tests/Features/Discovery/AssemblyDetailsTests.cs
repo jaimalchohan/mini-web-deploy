@@ -1,4 +1,5 @@
 ﻿using BitDeploy.Deployer.Features.Discovery;
+using BitDeploy.Deployer.Tests.Fakes;
 using NUnit.Framework;
 
 namespace BitDeploy.Deployer.Tests.Features.Discovery
@@ -9,7 +10,7 @@ namespace BitDeploy.Deployer.Tests.Features.Discovery
         [Test]
         public void Ctor_StoresPathsProvided()
         {
-            var instance = new AssemblyDetails("one", "two");
+            var instance = new AssemblyDetails("one", "two", typeof(TestInstaller));
 
             Assert.That(instance.Path, Is.EqualTo("one"));
             Assert.That(instance.BinaryPath, Is.EqualTo("two"));
