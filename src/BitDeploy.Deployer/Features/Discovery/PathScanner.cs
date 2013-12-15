@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using BitDeploy.Deployer.Features.Installation;
 
@@ -7,25 +6,26 @@ namespace BitDeploy.Deployer.Features.Discovery
 {
     public class PathScanner
     {
+        public string Path { get; private set; }
+
         private readonly string _scanSitePath;
-        private readonly string _path;
-        private readonly DiscoverAssembliesThatHaveInstallers _assemblyDiscoverer;
+        private readonly IDiscoverAssembliesThatHaveInstallers _assemblyDiscoverer;
 
         public PathScanner(string scanSitePath)
             : this(scanSitePath, new DiscoverAssembliesThatHaveInstallers())
         {
         }
 
-        public PathScanner(string scanSitePath, DiscoverAssembliesThatHaveInstallers assemblyDiscoverer)
+        public PathScanner(string scanSitePath, IDiscoverAssembliesThatHaveInstallers assemblyDiscoverer)
         {
             _scanSitePath = scanSitePath;
             _assemblyDiscoverer = assemblyDiscoverer;
-            _path = Path.Combine(scanSitePath, "bin");
+            Path = System.IO.Path.Combine(scanSitePath, "bin");
         }
 
         public ConfiguredInstallationManifest FindFirstAvailableInstaller()
         {
-            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(_path);
+            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(Path);
             var firstInstaller = assembliesWithInstallers.FirstOrDefault();
             
             if (firstInstaller == null)
@@ -33,7 +33,7 @@ namespace BitDeploy.Deployer.Features.Discovery
                 return new NoInstallationFound();
             }
             
-            var assemblyWithSiteInstaller = Assembly.LoadFrom(Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
+            var assemblyWithSiteInstaller = Assembly.LoadFrom(System.IO.Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
             var siteInstaller = assemblyWithSiteInstaller.CreateInstance(assemblyWithSiteInstaller.FullName) as ISiteInstaller;
             var configuration = new InstallationConfiguration(_scanSitePath);
 
