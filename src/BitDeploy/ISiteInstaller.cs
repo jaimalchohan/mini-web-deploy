@@ -2,6 +2,6 @@
 {
     public interface ISiteInstaller
     {
-        void Install(IFactory x);
+        void Install(IInstallationConfiguration x);
     }
 }

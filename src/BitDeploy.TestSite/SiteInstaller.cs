@@ -4,7 +4,7 @@ namespace BitDeploy.TestSite
 {
     public class SiteInstaller : ISiteInstaller
     {
-        public void Install(IFactory x)
+        public void Install(IInstallationConfiguration x)
         {
             x.WithSiteName("BitDeploy")
                 .AndDefaultHttpBinding()

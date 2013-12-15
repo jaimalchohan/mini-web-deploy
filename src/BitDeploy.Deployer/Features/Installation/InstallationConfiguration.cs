@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-namespace BitDeploy.Deployer
+
+namespace BitDeploy.Deployer.Features.Installation
 {
-    public class Factory : IFactory, ISiteFactory, IAppPoolFactory, ILogFileFactory
+    public class InstallationConfiguration : IInstallationConfiguration, ISiteFactory, IAppPoolFactory, ILogFileFactory
     {
         private string _startMode = "AlwaysRunning";
 
@@ -21,7 +22,7 @@ namespace BitDeploy.Deployer
 
         public List<string> AdditionalDirectories { get; private set; }
 
-        public Factory(string sitePath)
+        public InstallationConfiguration(string sitePath)
         {
             SitePath = sitePath;
             Bindings = new List<Binding>();
