@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using BitDeploy.Deployer.Features.Installation;
 
@@ -25,7 +26,7 @@ namespace BitDeploy.Deployer.Features.Discovery
 
         public ConfiguredInstallationManifest FindFirstAvailableInstaller()
         {
-            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(Path);
+            var assembliesWithInstallers = _assemblyDiscoverer.FindAssemblies(Path) ?? new List<AssemblyDetails>();
             var firstInstaller = assembliesWithInstallers.FirstOrDefault();
             
             if (firstInstaller == null)
