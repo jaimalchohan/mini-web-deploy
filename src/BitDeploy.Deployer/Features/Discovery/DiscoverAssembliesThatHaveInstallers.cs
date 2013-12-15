@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace BitDeploy.Deployer.Features.Discovery
 {
-    public class DiscoverAssembliesThatHaveInstallers
+    public class DiscoverAssembliesThatHaveInstallers : IDiscoverAssembliesThatHaveInstallers
     {
         private string _path;
 
