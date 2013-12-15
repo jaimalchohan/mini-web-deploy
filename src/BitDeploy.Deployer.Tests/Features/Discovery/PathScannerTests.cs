@@ -26,6 +26,14 @@ namespace BitDeploy.Deployer.Tests.Features.Discovery
         }
 
         [Test]
+        public void Ctor_PoorMansDi_DoesntThrow()
+        {
+            var scanner = new PathScanner(_siteScanPath);
+
+            Assert.That(scanner, Is.Not.Null);
+        }
+
+        [Test]
         public void FindFirstAvailableInstaller_Called_SearchesForAssemblies()
         {
             _pathScanner.FindFirstAvailableInstaller();
