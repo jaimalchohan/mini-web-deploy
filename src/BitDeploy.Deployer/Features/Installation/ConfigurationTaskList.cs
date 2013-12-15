@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BitDeploy.Deployer.Features.Installation.ConfigurationTasks;
+using BitDeploy.Deployer.Features.Installation.Configuration;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation

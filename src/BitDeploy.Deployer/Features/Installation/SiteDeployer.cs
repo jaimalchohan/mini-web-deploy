@@ -1,6 +1,6 @@
-﻿using BitDeploy.Deployer.Features.Installation.ConfigurationTasks;
+﻿using BitDeploy.Deployer.Features.Installation.Configuration;
 using BitDeploy.Deployer.Features.Installation.Installation;
-using BitDeploy.Deployer.Features.Installation.PreInstallationTasks;
+using BitDeploy.Deployer.Features.Installation.PreInstallation;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation

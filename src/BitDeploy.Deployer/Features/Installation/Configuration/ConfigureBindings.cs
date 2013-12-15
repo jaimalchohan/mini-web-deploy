@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.Web.Administration;
 
-namespace BitDeploy.Deployer.Features.Installation.ConfigurationTasks
+namespace BitDeploy.Deployer.Features.Installation.Configuration
 {
     public class ConfigureBindings : ConfigurationTaskBase
     {

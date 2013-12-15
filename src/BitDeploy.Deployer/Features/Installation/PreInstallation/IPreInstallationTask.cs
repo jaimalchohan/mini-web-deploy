@@ -1,6 +1,4 @@
-﻿using Microsoft.Web.Administration;
-
-namespace BitDeploy.Deployer.Features.Installation.PreInstallationTasks
+﻿namespace BitDeploy.Deployer.Features.Installation.PreInstallation
 {
     public interface IPreInstallationTask
     {

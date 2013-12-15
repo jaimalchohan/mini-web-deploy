@@ -1,6 +1,6 @@
 ﻿using Microsoft.Web.Administration;
 
-namespace BitDeploy.Deployer.Features.Installation.ConfigurationTasks
+namespace BitDeploy.Deployer.Features.Installation.Configuration
 {
     public interface IConfigurationTask
     {

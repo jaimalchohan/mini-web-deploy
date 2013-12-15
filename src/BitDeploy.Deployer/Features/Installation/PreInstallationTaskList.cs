@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BitDeploy.Deployer.Features.Installation.PreInstallationTasks;
+using BitDeploy.Deployer.Features.Installation.PreInstallation;
 
 namespace BitDeploy.Deployer.Features.Installation
 {
