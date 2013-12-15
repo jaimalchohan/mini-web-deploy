@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.Web.Administration;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 
 namespace BitDeploy.Deployer.Features.Installation.PreInstallation
 {
     public class DeleteExistingSite : PreInstallationTaskBase
     {
-        public DeleteExistingSite(ServerManager serverManager) 
+        public DeleteExistingSite(IServerManager serverManager) 
             : base(serverManager)
         {
         }

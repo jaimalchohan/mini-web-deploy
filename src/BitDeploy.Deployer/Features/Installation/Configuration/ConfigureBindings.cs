@@ -1,11 +1,12 @@
 ﻿using System.Linq;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation.Configuration
 {
     public class ConfigureBindings : ConfigurationTaskBase
     {
-        public ConfigureBindings(ServerManager serverManager)
+        public ConfigureBindings(IServerManager serverManager)
             : base(serverManager)
         {
         }

@@ -1,12 +1,12 @@
-﻿using Microsoft.Web.Administration;
+﻿using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 
 namespace BitDeploy.Deployer.Features.Installation.PreInstallation
 {
     public abstract class PreInstallationTaskBase : IPreInstallationTask
     {
-        protected ServerManager ServerManager;
+        protected IServerManager ServerManager;
 
-        protected PreInstallationTaskBase(ServerManager serverManager)
+        protected PreInstallationTaskBase(IServerManager serverManager)
         {
             ServerManager = serverManager;
         }

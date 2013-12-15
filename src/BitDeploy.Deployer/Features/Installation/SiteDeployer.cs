@@ -1,7 +1,7 @@
 ﻿using BitDeploy.Deployer.Features.Installation.Configuration;
 using BitDeploy.Deployer.Features.Installation.Installation;
 using BitDeploy.Deployer.Features.Installation.PreInstallation;
-using Microsoft.Web.Administration;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 
 namespace BitDeploy.Deployer.Features.Installation
 {
@@ -16,7 +16,7 @@ namespace BitDeploy.Deployer.Features.Installation
 
         public void Deploy()
         {
-            using (var serverManager = new ServerManager())
+            using (var serverManager = new ServerManagerWrapper())
             {
                 var preInstall = new PreInstallationTaskList
                 {

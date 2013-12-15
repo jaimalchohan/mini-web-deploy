@@ -1,12 +1,13 @@
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation.Configuration
 {
     public abstract class ConfigurationTaskBase : IConfigurationTask
     {
-        protected readonly ServerManager ServerManager;
+        protected readonly IServerManager ServerManager;
 
-        protected ConfigurationTaskBase(ServerManager serverManager)
+        protected ConfigurationTaskBase(IServerManager serverManager)
         {
             ServerManager = serverManager;
         }

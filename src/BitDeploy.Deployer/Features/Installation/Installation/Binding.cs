@@ -1,4 +1,4 @@
-﻿namespace BitDeploy.Deployer.Features.Installation
+﻿namespace BitDeploy.Deployer.Features.Installation.Installation
 {
     public class Binding
     {

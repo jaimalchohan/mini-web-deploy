@@ -1,12 +1,13 @@
-﻿using Microsoft.Web.Administration;
+﻿using BitDeploy.Deployer.Infrastructure.IIS7Plus;
+using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation.Installation
 {
     public class CreateSite
     {
-        private readonly ServerManager _serverManager;
+        private readonly IServerManager _serverManager;
 
-        public CreateSite(ServerManager serverManager)
+        public CreateSite(IServerManager serverManager)
         {
             _serverManager = serverManager;
         }

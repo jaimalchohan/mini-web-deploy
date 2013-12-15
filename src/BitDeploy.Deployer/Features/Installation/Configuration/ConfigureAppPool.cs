@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation.Configuration
 {
     public class ConfigureAppPool : ConfigurationTaskBase
     {
-        public ConfigureAppPool(ServerManager serverManager) : base(serverManager)
+        public ConfigureAppPool(IServerManager serverManager)
+            : base(serverManager)
         {
         }
 

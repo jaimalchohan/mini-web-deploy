@@ -51,7 +51,7 @@
     <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallers.cs" />
     <Compile Include="Features\Discovery\IDiscoverAssembliesThatHaveInstallers.cs" />
     <Compile Include="Features\Discovery\NoInstallationFound.cs" />
-    <Compile Include="Features\Installation\Binding.cs" />
+    <Compile Include="Features\Installation\Installation\Binding.cs" />
     <Compile Include="Features\Discovery\ConfiguredInstallationManifest.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="Features\Discovery\IFindSiteInstallers.cs" />

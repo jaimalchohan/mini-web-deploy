@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using BitDeploy.Deployer.Infrastructure.IIS7Plus;
 using Microsoft.Web.Administration;
 
 namespace BitDeploy.Deployer.Features.Installation.Configuration
 {
     public class ConfigureAdditionalDirectories : ConfigurationTaskBase
     {
-        public ConfigureAdditionalDirectories(ServerManager serverManager)
+        public ConfigureAdditionalDirectories(IServerManager serverManager)
             : base(serverManager)
         {
         }

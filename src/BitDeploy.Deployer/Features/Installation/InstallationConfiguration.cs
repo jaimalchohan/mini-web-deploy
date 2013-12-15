@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BitDeploy.Deployer.Features.Installation.Installation;
 
 namespace BitDeploy.Deployer.Features.Installation
 {
