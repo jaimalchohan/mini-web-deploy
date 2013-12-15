@@ -1,4 +1,5 @@
 ﻿using BitDeploy.Deployer.Features.Installation.ConfigurationTasks;
+using BitDeploy.Deployer.Features.Installation.Installation;
 using BitDeploy.Deployer.Features.Installation.PreInstallationTasks;
 using Microsoft.Web.Administration;
 
@@ -17,31 +18,33 @@ namespace BitDeploy.Deployer.Features.Installation
         {
             using (var serverManager = new ServerManager())
             {
-                Deploy(serverManager);
+                var preInstall = new PreInstallationTaskList
+                {
+                    new DeleteExistingSite(serverManager),
+                };
+
+                var installation = new CreateSite(serverManager);
+
+                var configuration = new ConfigurationTaskList
+                {
+                    new ConfigureAppPool(serverManager),
+                    new ConfigureBindings(serverManager),
+                    new ConfigureLogging(serverManager),
+                    new ConfigureAdditionalDirectories(serverManager)
+                };
+
+                Execute(preInstall, installation, configuration);
+                serverManager.CommitChanges();
             }
         }
 
-        public void Deploy(ServerManager serverManager)
+        public void Execute(PreInstallationTaskList preInstall, CreateSite installation, ConfigurationTaskList configuration)
         {
-            new PreInstallationTaskList
-            {
-                new DeleteExistingSite(serverManager),
-            }
-            .PerformTasks(_installationConfiguration);
+            preInstall.PerformTasks(_installationConfiguration);
             
-            var site = serverManager.Sites.Add(_installationConfiguration.SiteName, _installationConfiguration.SitePath, 80);
-            site.ServerAutoStart = _installationConfiguration.SiteAutoStart;
-
-            new ConfigurationTaskList
-            {
-                new ConfigureAppPool(serverManager),
-                new ConfigureBindings(serverManager),
-                new ConfigureLogging(serverManager),
-                new ConfigureAdditionalDirectories(serverManager)
-            }
-            .Configure(site, _installationConfiguration);
-
-            serverManager.CommitChanges();
+            var site = installation.Install(_installationConfiguration);
+            
+            configuration.Configure(site, _installationConfiguration);
         }
     }
 }

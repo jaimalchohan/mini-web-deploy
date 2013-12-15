@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using BitDeploy.Deployer.Features.Discovery;
 using BitDeploy.Deployer.Features.Installation;
 
@@ -8,7 +9,8 @@ namespace BitDeploy.Deployer
     {
         static void Main(string[] args)
         {
-            var pathScanner = new PathScanner(args[0]);
+            var unpackedDirectory = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
+            var pathScanner = new PathScanner(unpackedDirectory);
             var deploymentManifest = pathScanner.FindFirstAvailableInstaller();
 
             if (deploymentManifest is NoInstallationFound)
