@@ -35,5 +35,13 @@ namespace BitDeploy.Deployer.Tests.Features.Discovery
 
             _discoverer.Verify(x=>x.FindAssemblies(_siteScanPath + "\\bin"));
         }
+
+        [Test]
+        public void FindFirstAvailableInstaller_NoAssembliesFound_ReturnsNoInstallationFoundManifest()
+        {
+            var manifest = _pathScanner.FindFirstAvailableInstaller();
+
+            Assert.That(manifest, Is.TypeOf<NoInstallationFound>());
+        }
     }
 }
