@@ -28,7 +28,7 @@ namespace BitDeploy.Deployer.Features.Installation.ConfigurationTasks
             ConfigureAppPoolIfNotExists(configuration);
         }
 
-        public void ConfigureAppPoolIfNotExists(InstallationConfiguration configuration)
+        private void ConfigureAppPoolIfNotExists(InstallationConfiguration configuration)
         {
             var existingPool = ServerManager.ApplicationPools.SingleOrDefault(x => x.Name.Equals(configuration.AppPoolName));
 
