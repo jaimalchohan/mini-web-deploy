@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67CA0992-465E-496D-961D-0B090BFA85C3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MiniWebDeploy.Deployer</RootNamespace>
+    <AssemblyName>MiniWebDeploy.Deployer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Features\Discovery\AssemblyDetails.cs" />
+    <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\IDiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\ILoadAnAssembly.cs" />
+    <Compile Include="Features\Discovery\LoadAnAssembly.cs" />
+    <Compile Include="Features\Discovery\NoInstallationFound.cs" />
+    <Compile Include="Features\Installation\Installation\Binding.cs" />
+    <Compile Include="Features\Discovery\ConfiguredInstallationManifest.cs" />
+    <Compile Include="ExitCodes.cs" />
+    <Compile Include="Features\Discovery\IFindSiteInstallers.cs" />
+    <Compile Include="Features\Discovery\PathScanner.cs" />
+    <Compile Include="Features\Installation\ConfigurationTaskList.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigurationTaskBase.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAdditionalDirectories.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureLogging.cs" />
+    <Compile Include="Features\Installation\Configuration\IConfigurationTask.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPool.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureBindings.cs" />
+    <Compile Include="Features\Installation\Installation\CreateSite.cs" />
+    <Compile Include="Features\Installation\PreInstallationTaskList.cs" />
+    <Compile Include="Features\Installation\PreInstallation\DeleteExistingSite.cs" />
+    <Compile Include="Features\Installation\PreInstallation\IPreInstallationTask.cs" />
+    <Compile Include="Features\Installation\PreInstallation\PreInstallationTaskBase.cs" />
+    <Compile Include="Features\Installation\SiteDeployer.cs" />
+    <Compile Include="Features\Installation\InstallationConfiguration.cs" />
+    <Compile Include="Infrastructure\IIS7Plus\IServerManager.cs" />
+    <Compile Include="Infrastructure\IIS7Plus\ServerManagerWrapper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Features\Discovery\SiteInstallerExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiniWebDeploy\MiniWebDeploy.csproj">
+      <Project>{b6898b90-6329-475c-a256-4e6494e943cf}</Project>
+      <Name>MiniWebDeploy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
