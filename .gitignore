@@ -141,6 +141,9 @@ ModelManifest.xml
 # Build outputs
 out
 
+# AssemblyInfo is modified in every build, so exlcude it
+AssemblyInfo.cs
+
 # =========================
 # Windows detritus
 # =========================
