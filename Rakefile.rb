@@ -25,6 +25,7 @@ desc 'package nugets - finds all projects and package them'
 nugets_pack :create_nugets => [package_dir, :versioning, :build] do |p|
   p.files   = FileList['src/**/MiniWebDeploy.csproj']
   p.out     = package_dir
+  p.configuration = 'Release'
   p.exe     = '.nuget/NuGet.exe'
   p.with_metadata do |m|
     m.description = 'A cool nuget'
