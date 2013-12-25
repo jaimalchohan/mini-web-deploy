@@ -30,10 +30,20 @@ build :build => [:versioning, :restore, :patch_assembly_info] do |b|
   b.prop 'Configuration', 'Release'
 end
 
+desc 'ILMerge the exe and its dependencies'
+task :ilmerge => [:build] do
+	cmd = 'packages\ilmerge.2.13.0307\ilmerge.exe /target:winexe ' 
+	cmd =  cmd + '/out:out\MiniWebDeploy.exe '
+	cmd =  cmd + '"src\MiniWebDeploy.Deployer\bin\Release\MiniWebDeploy.Deployer.exe" '
+	cmd =  cmd + '"src\MiniWebDeploy\bin\Release\MiniWebDeploy.dll" '
+	cmd =  cmd + '"packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll"'
+	sh cmd
+end
+
 directory package_dir
 
 desc 'package nugets - finds all projects and package them'
-nugets_pack :create_nugets => [package_dir, :versioning, :build] do |p|
+nugets_pack :create_nugets => [package_dir, :versioning, :build, :ilmerge] do |p|
   p.files   = FileList['src/**/MiniWebDeploy.csproj']
   p.out     = package_dir
   p.configuration = 'Release'
@@ -44,7 +54,7 @@ nugets_pack :create_nugets => [package_dir, :versioning, :build] do |p|
     m.version = ENV['NUGET_VERSION']
   end
   p.with_package do |p|
-    p.add_file '../MiniWebDeploy.Deployer/bin/Release/MiniWebDeploy.Deployer.exe', 'lib'
+    p.add_file '../../out/MiniWebDeploy.exe', 'lib/net40'
   end
 end
 
