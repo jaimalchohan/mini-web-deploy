@@ -6,8 +6,9 @@ namespace MiniWebDeploy.Deployer.Features.Installation
     public class InstallationConfiguration : IInstallationConfiguration, ISiteFactory, IAppPoolFactory, ILogFileFactory
     {
         private string _startMode = "AlwaysRunning";
+        private string _siteName = "Default Website";
 
-        public string SiteName { get; private set; }
+        public string SiteName { get { return _siteName; } }
         public bool SiteAutoStart { get; private set; }
         public string SitePath { get; private set; }
         public bool SiteDeleteExisting { get; private set; }
@@ -32,7 +33,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
 
         public ISiteFactory WithSiteName(string siteName)
         {
-            SiteName = siteName;
+            _siteName = siteName;
             return this;
         }
 
