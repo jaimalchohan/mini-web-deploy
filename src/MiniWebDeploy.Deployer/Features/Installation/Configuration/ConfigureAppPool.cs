@@ -22,7 +22,11 @@ namespace MiniWebDeploy.Deployer.Features.Installation.Configuration
             if (configuration.AppPoolDeleteExisting)
             {
                 var existingAppPool = ServerManager.ApplicationPools.SingleOrDefault(x => x.Name.Equals(configuration.AppPoolName, StringComparison.InvariantCultureIgnoreCase));
-                ServerManager.ApplicationPools.Remove(existingAppPool);
+                
+                if(existingAppPool != null)
+                { 
+                    ServerManager.ApplicationPools.Remove(existingAppPool);
+                }
             }
 
             site.ApplicationDefaults.ApplicationPoolName = configuration.AppPoolName;
