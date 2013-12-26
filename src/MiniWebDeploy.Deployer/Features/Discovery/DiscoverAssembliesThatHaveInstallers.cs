@@ -21,7 +21,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
 
             foreach (var binaryPath in binaries)
             {
-                var assembly = Assembly.ReflectionOnlyLoadFrom(Path.Combine(path, binaryPath));
+                var assembly = Assembly.ReflectionOnlyLoadFrom(binaryPath);
 
                 var singleInstanceOfASiteInstallerInAllLoadedAssemblies = assembly.GetTypes()
                     .SingleOrDefault(x => x.GetInterfaces().Select(y => y.AssemblyQualifiedName)

@@ -37,7 +37,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
                 return new NoInstallationFound();
             }
             
-            var assemblyWithSiteInstaller = _assemblyLoader.Load(System.IO.Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
+            var assemblyWithSiteInstaller = _assemblyLoader.Load(firstInstaller.BinaryPath);
             var siteInstaller = assemblyWithSiteInstaller.CreateInstance(firstInstaller.InstallerType.FullName, true);
             var configuration = new InstallationConfiguration(_scanSitePath, _args);
 
