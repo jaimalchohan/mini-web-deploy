@@ -12,7 +12,7 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery
         public void ConfigureInstallation_CallsInstallOnISiteInstaller_ExistsToProvideACleanerApiToUsersWhileMaintainingCodeClarity()
         {
             var fakeInstaller = new Mock<ISiteInstaller>();
-            var config = new InstallationConfiguration(string.Empty);
+            var config = new InstallationConfiguration(string.Empty, null);
 
             fakeInstaller.Object.ConfigureInstallation(config);
 

@@ -11,7 +11,7 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery
         [Test]
         public void Ctor_StoresProvidedArguments()
         {
-            var config = new InstallationConfiguration("path");
+            var config = new InstallationConfiguration("path", null);
             var installer = new TestInstaller();
             const string path = "path";
             var discoveredDetails = new AssemblyDetails(path, "binary.dll", typeof (TestInstaller));

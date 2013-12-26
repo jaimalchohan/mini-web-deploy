@@ -11,7 +11,7 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery.Installation
         [SetUp]
         public void SetUp()
         {
-            _cfg = new InstallationConfiguration("");
+            _cfg = new InstallationConfiguration("", null);
         }
 
         [Test]

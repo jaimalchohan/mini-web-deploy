@@ -22,13 +22,13 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery
             _discoverer = new Mock<IDiscoverAssembliesThatHaveInstallers>();
             _loader = new Mock<ILoadAnAssembly>();
 
-            _pathScanner = new PathScanner(_siteScanPath, _discoverer.Object, _loader.Object);
+            _pathScanner = new PathScanner(_siteScanPath, null, _discoverer.Object, _loader.Object);
         }
 
         [Test]
         public void Ctor_PoorMansDi_DoesntThrow()
         {
-            var scanner = new PathScanner(_siteScanPath);
+            var scanner = new PathScanner(_siteScanPath, null);
 
             Assert.That(scanner, Is.Not.Null);
         }
