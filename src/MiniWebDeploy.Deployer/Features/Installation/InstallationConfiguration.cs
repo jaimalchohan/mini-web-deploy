@@ -40,11 +40,6 @@ namespace MiniWebDeploy.Deployer.Features.Installation
             return this;
         }
 
-        public void SetSitePath(string sitePath)
-        {
-            SitePath = sitePath;
-        }
-
         public ISiteFactory AndAutoStart()
         {
             SiteAutoStart = true;
@@ -120,6 +115,13 @@ namespace MiniWebDeploy.Deployer.Features.Installation
         public void WithDirectory(string directory)
         {
             AdditionalDirectories.Add(directory);
+        }
+
+
+        public ISiteFactory AndSitePath(string sitePath)
+        {
+            SitePath = SitePath;
+            return this;
         }
     }
 }

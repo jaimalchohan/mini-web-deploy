@@ -7,5 +7,6 @@
         ISiteFactory AndHttpBinding(string host, string ipAddress);
         ISiteFactory AndAutoStart();
         ISiteFactory AndDeleteExistingSite();
+        ISiteFactory AndSitePath(string sitePath);
     }
 }
