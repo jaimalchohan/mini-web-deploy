@@ -54,7 +54,7 @@ nugets_pack :create_nugets => [package_dir, :versioning, :build, :ilmerge] do |p
     m.version = ENV['NUGET_VERSION']
   end
   p.with_package do |p|
-    p.add_file '../../out/MiniWebDeploy.exe', 'lib/net40'
+    p.add_file '../../out/MiniWebDeploy.exe', 'tools'
   end
 end
 
