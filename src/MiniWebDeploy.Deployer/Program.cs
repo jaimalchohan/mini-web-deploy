@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using MiniWebDeploy.Deployer.Features.Discovery;
 using MiniWebDeploy.Deployer.Features.Installation;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
@@ -10,14 +11,18 @@ namespace MiniWebDeploy.Deployer
     {
         static void Main(string[] args)
         {
-            var unpackedDirectory = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
-            var pathScanner = new PathScanner(unpackedDirectory);
+            var options = new ArgsParser().Parse(args);
+
+            var unpackedDirectory = options.Count > 0 ? options.First().Value : Directory.GetCurrentDirectory();
+            var pathScanner = new PathScanner(unpackedDirectory, options);
             var deploymentManifest = pathScanner.FindFirstAvailableInstaller();
 
             if (deploymentManifest is NoInstallationFound)
             {
                 Environment.Exit((int)ExitCodes.NoInstallationPerformed);
             }
+
+            deploymentManifest.SourceInstaller.ConfigureInstallation(deploymentManifest.InstallationConfiguration);
 
             using (var serverManager = new ServerManagerWrapper())
             {

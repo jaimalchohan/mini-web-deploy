@@ -24,11 +24,14 @@ namespace MiniWebDeploy.Deployer.Features.Installation
 
         public List<string> AdditionalDirectories { get; private set; }
 
-        public InstallationConfiguration(string sitePath)
+        public IDictionary<string, string> Args { get; private set; }
+
+        public InstallationConfiguration(string sitePath, IDictionary<string, string> args)
         {
             SitePath = sitePath;
             Bindings = new List<Binding>();
             AdditionalDirectories = new List<string>();
+            Args = args?? new Dictionary<string, string>();
         }
 
         public ISiteFactory WithSiteName(string siteName)

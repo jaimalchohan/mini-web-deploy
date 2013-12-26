@@ -9,17 +9,19 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
         public string Path { get; private set; }
 
         private readonly string _scanSitePath;
+        private readonly Dictionary<string, string> _args;
         private readonly IDiscoverAssembliesThatHaveInstallers _assemblyDiscoverer;
         private readonly ILoadAnAssembly _assemblyLoader;
 
-        public PathScanner(string scanSitePath)
-            : this(scanSitePath, new DiscoverAssembliesThatHaveInstallers(), new LoadAnAssembly())
+        public PathScanner(string scanSitePath, Dictionary<string, string> args)
+            : this(scanSitePath, args, new DiscoverAssembliesThatHaveInstallers(), new LoadAnAssembly())
         {
         }
 
-        public PathScanner(string scanSitePath, IDiscoverAssembliesThatHaveInstallers assemblyDiscoverer, ILoadAnAssembly assemblyLoader)
+        public PathScanner(string scanSitePath, Dictionary<string, string> args, IDiscoverAssembliesThatHaveInstallers assemblyDiscoverer, ILoadAnAssembly assemblyLoader)
         {
             _scanSitePath = scanSitePath;
+            _args = args;
             _assemblyDiscoverer = assemblyDiscoverer;
             _assemblyLoader = assemblyLoader;
             Path = System.IO.Path.Combine(scanSitePath, "bin");
@@ -37,7 +39,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
             
             var assemblyWithSiteInstaller = _assemblyLoader.Load(System.IO.Path.Combine(firstInstaller.Path, firstInstaller.BinaryPath));
             var siteInstaller = assemblyWithSiteInstaller.CreateInstance(firstInstaller.InstallerType.FullName, true);
-            var configuration = new InstallationConfiguration(_scanSitePath);
+            var configuration = new InstallationConfiguration(_scanSitePath, _args);
 
             return new ConfiguredInstallationManifest(configuration, (ISiteInstaller)siteInstaller, _scanSitePath, firstInstaller);
         }

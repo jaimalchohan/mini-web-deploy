@@ -54,6 +54,7 @@
     <Compile Include="Features\Discovery\LoadAnAssemblyTests.cs" />
     <Compile Include="Features\Discovery\PathScannerTests.cs" />
     <Compile Include="Features\Discovery\SiteInstallerExtensionsTests.cs" />
+    <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

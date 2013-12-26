@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgsParser.cs" />
     <Compile Include="Features\Discovery\AssemblyDetails.cs" />
     <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallers.cs" />
     <Compile Include="Features\Discovery\IDiscoverAssembliesThatHaveInstallers.cs" />
