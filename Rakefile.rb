@@ -52,6 +52,8 @@ nugets_pack :create_nugets => [package_dir, :versioning, :build, :ilmerge] do |p
     m.description = 'A really simple website deployment tool providing an easy to understand and discoverable wrapper around the Microsoft.Web.Administration assembly and additional helpers for common deployment tasks.'
     m.authors = 'Jaimal Chohan'
     m.version = ENV['NUGET_VERSION']
+    m.license_url = 'https://github.com/jaimalchohan/mini-web-deploy/blob/master/LICENSE.txt'
+    m.project_url = 'https://github.com/jaimalchohan/mini-web-deploy'
   end
   p.with_package do |p|
     p.add_file '../../out/MiniWebDeploy.exe', 'tools'
