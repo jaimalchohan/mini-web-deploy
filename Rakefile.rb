@@ -49,7 +49,7 @@ nugets_pack :create_nugets => [package_dir, :versioning, :build, :ilmerge] do |p
   p.configuration = 'Release'
   p.exe     = '.nuget/NuGet.exe'
   p.with_metadata do |m|
-    m.description = 'An easy to use web deployment tool'
+    m.description = 'A really simple website deployment tool providing an easy to understand and discoverable wrapper around the Microsoft.Web.Administration assembly and additional helpers for common deployment tasks.'
     m.authors = 'Jaimal Chohan'
     m.version = ENV['NUGET_VERSION']
   end
