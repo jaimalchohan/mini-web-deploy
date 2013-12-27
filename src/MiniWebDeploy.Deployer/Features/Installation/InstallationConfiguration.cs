@@ -120,7 +120,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
 
         public ISiteFactory AndSitePath(string sitePath)
         {
-            SitePath = SitePath;
+            SitePath = sitePath;
             return this;
         }
     }
