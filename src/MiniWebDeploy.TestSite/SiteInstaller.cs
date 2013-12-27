@@ -11,7 +11,8 @@ namespace MiniWebDeploy.TestSite
                 .AndHttpBinding("bitdeploy.com")
                 .AndHttpBinding("bitdeploy.com", "127.0.0.1")
                 .AndAutoStart()
-                .AndDeleteExistingSite();
+                .AndDeleteExistingSite()
+                .AndSitePath("..\\src\\MiniWebDeploy.TestSite\\bin");
 
             x.WithAppPool("MyAppPool")
                 .AndDeleteExistingAppPool()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MiniWebDeploy.Deployer
 {
@@ -11,7 +12,9 @@ namespace MiniWebDeploy.Deployer
             
             if(args.Length > 0)
             {
-                result.Add("__SITEPATH", args[0]);
+                var path = args[0];
+                path = !Path.IsPathRooted(path) ? Path.GetFullPath(path) : path;
+                result.Add("__SITEPATH", path);
             }
 
             if (args.Length > 1)
