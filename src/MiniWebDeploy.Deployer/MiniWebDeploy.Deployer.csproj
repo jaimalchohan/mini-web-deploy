@@ -50,7 +50,9 @@
     <Compile Include="ArgsParser.cs" />
     <Compile Include="Features\Discovery\AssemblyDetails.cs" />
     <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\IEnumerateAssemblies.cs" />
     <Compile Include="Features\Discovery\IDiscoverAssembliesThatHaveInstallers.cs" />
+    <Compile Include="Features\Discovery\EnumerateAssemblies.cs" />
     <Compile Include="Features\Discovery\ILoadAnAssembly.cs" />
     <Compile Include="Features\Discovery\LoadAnAssembly.cs" />
     <Compile Include="Features\Discovery\NoInstallationFound.cs" />
