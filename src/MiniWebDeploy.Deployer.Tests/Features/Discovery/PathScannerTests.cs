@@ -62,7 +62,7 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery
         {
             var foundAssembly = new AssemblyDetails("", "", typeof(TestInstaller));
             _discoverer.Setup(x => x.FindAssemblies(It.IsAny<string>())).Returns(new List<AssemblyDetails> { foundAssembly });
-            _loader.Setup(x => x.Load(It.IsAny<string>())).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
+            _loader.Setup(x => x.LoadFrom(It.IsAny<string>())).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
 
             var manifest = _pathScanner.FindFirstAvailableInstaller();
 
@@ -72,10 +72,10 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery
         [Test]
         public void FindFirstAvailableInstaller_MultipleAssembliesFound_ReturnsManifestForFirstOne()
         {
-            var expectedAssembly = new AssemblyDetails("c:\\path", "expect.this.dll", typeof (TestInstaller));
-            var shouldNotCreate = new AssemblyDetails("c:\\path", "do.not.expect.this.dll", typeof (TestInstaller));
+            var expectedAssembly = new AssemblyDetails("c:\\path", "c:\\path\\expect.this.dll", typeof(TestInstaller));
+            var shouldNotCreate = new AssemblyDetails("c:\\path", "c:\\path\\do.not.expect.this.dll", typeof(TestInstaller));
             _discoverer.Setup(x => x.FindAssemblies(It.IsAny<string>())).Returns(new List<AssemblyDetails> { expectedAssembly, shouldNotCreate });
-            _loader.Setup(x => x.Load("c:\\path\\expect.this.dll")).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
+            _loader.Setup(x => x.LoadFrom("c:\\path\\expect.this.dll")).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
 
             var manifest = _pathScanner.FindFirstAvailableInstaller();
 
@@ -85,9 +85,9 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Discovery
         [Test]
         public void FindFirstAvailableInstaller_AssemblyFound_ReturnsConfiguredManifestForAssembly()
         {
-            var foundAssembly = new AssemblyDetails("c:\\path", "binary.dll", typeof(TestInstaller));
+            var foundAssembly = new AssemblyDetails("c:\\path", "c:\\path\\binary.dll", typeof(TestInstaller));
             _discoverer.Setup(x => x.FindAssemblies(It.IsAny<string>())).Returns(new List<AssemblyDetails> { foundAssembly });
-            _loader.Setup(x => x.Load("c:\\path\\binary.dll")).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
+            _loader.Setup(x => x.LoadFrom("c:\\path\\binary.dll")).Returns(Assembly.GetAssembly(typeof(PathScannerTests)));
 
             var manifest = _pathScanner.FindFirstAvailableInstaller();
 

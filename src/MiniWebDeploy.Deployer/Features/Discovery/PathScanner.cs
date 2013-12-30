@@ -14,7 +14,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
         private readonly ILoadAnAssembly _assemblyLoader;
 
         public PathScanner(string scanSitePath, Dictionary<string, string> args)
-            : this(scanSitePath, args, new DiscoverAssembliesThatHaveInstallers(), new LoadAnAssembly())
+            : this(scanSitePath, args, new DiscoverAssembliesThatHaveInstallers(new LoadAnAssembly()), new LoadAnAssembly())
         {
         }
 
@@ -37,7 +37,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
                 return new NoInstallationFound();
             }
             
-            var assemblyWithSiteInstaller = _assemblyLoader.Load(firstInstaller.BinaryPath);
+            var assemblyWithSiteInstaller = _assemblyLoader.LoadFrom(firstInstaller.BinaryPath);
             var siteInstaller = assemblyWithSiteInstaller.CreateInstance(firstInstaller.InstallerType.FullName, true);
             var configuration = new InstallationConfiguration(_scanSitePath, _args);
 

@@ -10,6 +10,12 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
     public class DiscoverAssembliesThatHaveInstallers : IDiscoverAssembliesThatHaveInstallers
     {
         private string _path;
+        private readonly ILoadAnAssembly _assemblyLoader;
+
+        public DiscoverAssembliesThatHaveInstallers(ILoadAnAssembly assemblyLoader)
+        {
+            _assemblyLoader = assemblyLoader;
+        }
 
         public List<AssemblyDetails> FindAssemblies(string path)
         {
@@ -24,7 +30,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
 
             foreach (var binaryPath in binaries)
             {
-                var assembly = Assembly.ReflectionOnlyLoadFrom(binaryPath);
+                var assembly = _assemblyLoader.ReflectionOnlyLoadFrom(binaryPath);
 
                 var singleInstanceOfASiteInstallerInAllLoadedAssemblies = assembly.GetTypes()
                     .SingleOrDefault(x => x.GetInterfaces().Select(y => y.AssemblyQualifiedName)
@@ -46,11 +52,11 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
         {
             try
             {
-                return Assembly.ReflectionOnlyLoadFrom(Path.Combine(_path, rargs.Name.Split(',')[0] + ".dll"));
+                return _assemblyLoader.ReflectionOnlyLoadFrom(Path.Combine(_path, rargs.Name.Split(',')[0] + ".dll"));
             }
             catch (FileNotFoundException)
             {
-                return Assembly.ReflectionOnlyLoad(rargs.Name);
+                return _assemblyLoader.ReflectionOnlyLoad(rargs.Name);
             }
         }
     }

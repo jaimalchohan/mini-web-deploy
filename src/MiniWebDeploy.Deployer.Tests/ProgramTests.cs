@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,15 @@ namespace MiniWebDeploy.Deployer.Tests
         }
 
         [Test]
-        public void FirstArgIsSitePath()
+        public void RelativeSitePathIsConvertedIntoAbsolutueSitePath()
         {
-            Assert.AreEqual("pathToSite", _dictionary["__SITEPATH"]);
+            Assert.AreEqual(Path.GetFullPath("pathToSite"), _dictionary["__SITEPATH"]);
+        }
+
+        [Test]
+        public void KeysAreAllInUppercase()
+        {
+            Assert.IsTrue(_dictionary.Keys.All(x => x.All(y => Char.IsUpper(y) || Char.IsNumber(y) || y == '_')));
         }
 
         [Test]
