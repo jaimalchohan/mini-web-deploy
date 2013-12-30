@@ -11,10 +11,12 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
     {
         private string _path;
         private readonly ILoadAnAssembly _assemblyLoader;
+        private readonly IEnumerateAssemblies _assemblyEnumerator;
 
-        public DiscoverAssembliesThatHaveInstallers(ILoadAnAssembly assemblyLoader)
+        public DiscoverAssembliesThatHaveInstallers(ILoadAnAssembly assemblyLoader, IEnumerateAssemblies assemblyEnumerator)
         {
             _assemblyLoader = assemblyLoader;
+            _assemblyEnumerator = assemblyEnumerator;
         }
 
         public List<AssemblyDetails> FindAssemblies(string path)
@@ -25,7 +27,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += AssemblyScanErrorHandler;
 
-            var binaries = Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
+            var binaries = _assemblyEnumerator.EnumerateFrom(path);
             var binariesWithInstallersInThem = new List<AssemblyDetails>();
 
             foreach (var binaryPath in binaries)
