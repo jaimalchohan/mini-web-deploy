@@ -4,6 +4,7 @@ using System.Linq;
 using MiniWebDeploy.Deployer.Features.Discovery;
 using MiniWebDeploy.Deployer.Features.Installation;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
+using System.Diagnostics;
 
 namespace MiniWebDeploy.Deployer
 {
@@ -11,8 +12,10 @@ namespace MiniWebDeploy.Deployer
     {
         static void Main(string[] args)
         {
-            var options = new ArgsParser().Parse(args);
+            Trace.Listeners.Add(new ConsoleTraceListener(true));
 
+            var options = new ArgsParser().Parse(args);
+            
             var unpackedDirectory = options.Count > 0 ? options.First().Value : Directory.GetCurrentDirectory();
             var pathScanner = new PathScanner(unpackedDirectory, options);
             var deploymentManifest = pathScanner.FindFirstAvailableInstaller();

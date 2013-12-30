@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,6 +13,8 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
 
         public List<AssemblyDetails> FindAssemblies(string path)
         {
+            Trace.TraceInformation("Searching for assemblies with ISiteInstaller implementations at " + path);
+
             _path = path;
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += AssemblyScanErrorHandler;
@@ -29,6 +32,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
 
                 if (singleInstanceOfASiteInstallerInAllLoadedAssemblies != null)
                 {
+                    Trace.TraceInformation("Found assembly with ISiteInstaller implementations at " + binaryPath);
                     binariesWithInstallersInThem.Add(new AssemblyDetails(path, binaryPath, singleInstanceOfASiteInstallerInAllLoadedAssemblies));
                 }
             }
