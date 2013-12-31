@@ -14,7 +14,7 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
         private readonly ILoadAnAssembly _assemblyLoader;
 
         public PathScanner(string scanSitePath, Dictionary<string, string> args)
-            : this(scanSitePath, args, new DiscoverAssembliesThatHaveInstallers(new LoadAnAssembly()), new LoadAnAssembly())
+            : this(scanSitePath, args, new DiscoverAssembliesThatHaveInstallers(new LoadAnAssembly(), new EnumerateAssemblies()), new LoadAnAssembly())
         {
         }
 
