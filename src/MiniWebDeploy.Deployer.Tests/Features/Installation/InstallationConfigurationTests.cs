@@ -1,7 +1,7 @@
 ﻿using MiniWebDeploy.Deployer.Features.Installation;
 using NUnit.Framework;
 
-namespace MiniWebDeploy.Deployer.Tests.Features.Discovery.Installation
+namespace MiniWebDeploy.Deployer.Tests.Features.Installation
 {
     [TestFixture]
     public class InstallationConfigurationTests
