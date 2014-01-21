@@ -6,10 +6,12 @@ namespace MiniWebDeploy.TestSite
     {
         public void Install(IInstallationConfiguration x)
         {
-            x.WithSiteName("BitDeploy")
+            var siteName = "MiniWebDeployIntegrationSite";
+
+            x.WithSiteName(siteName)
                 .AndDefaultHttpBinding()
-                .AndHttpBinding("bitdeploy.com")
-                .AndHttpBinding("bitdeploy.com", "127.0.0.1")
+                .AndHttpBinding(siteName + ".com")
+                .AndHttpBinding(siteName + ".com", "127.0.0.1")
                 .AndAutoStart()
                 .AndDeleteExistingSite()
                 .AndSitePath("..\\src\\MiniWebDeploy.TestSite\\bin");
