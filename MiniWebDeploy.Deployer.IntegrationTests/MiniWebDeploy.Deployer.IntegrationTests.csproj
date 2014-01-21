@@ -48,8 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeleteSiteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CreateSiteTests.cs" />
+    <Compile Include="SiteTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
