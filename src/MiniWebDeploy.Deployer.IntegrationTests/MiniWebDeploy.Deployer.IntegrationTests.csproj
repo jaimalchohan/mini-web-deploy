@@ -48,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteSiteTests.cs" />
+    <Compile Include="DeleteSiteTests\AndSiteDoesNotExist.cs" />
+    <Compile Include="DeleteSiteTests\AndFlagIsNotSet.cs" />
+    <Compile Include="DeleteSiteTests\AndSiteExists.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CreateSiteTests.cs" />
     <Compile Include="SiteTestBase.cs" />
@@ -57,11 +59,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\MiniWebDeploy.Deployer\MiniWebDeploy.Deployer.csproj">
+    <ProjectReference Include="..\MiniWebDeploy.Deployer\MiniWebDeploy.Deployer.csproj">
       <Project>{67ca0992-465e-496d-961d-0b090bfa85c3}</Project>
       <Name>MiniWebDeploy.Deployer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\MiniWebDeploy\MiniWebDeploy.csproj">
+    <ProjectReference Include="..\MiniWebDeploy\MiniWebDeploy.csproj">
       <Project>{b6898b90-6329-475c-a256-4e6494e943cf}</Project>
       <Name>MiniWebDeploy</Name>
     </ProjectReference>

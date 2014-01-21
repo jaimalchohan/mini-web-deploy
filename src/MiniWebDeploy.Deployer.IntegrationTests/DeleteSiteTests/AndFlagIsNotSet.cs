@@ -10,9 +10,8 @@ using MiniWebDeploy.Deployer.Features.Installation.PreInstallation;
 namespace MiniWebDeploy.Deployer.IntegrationTests
 {
     [TestFixture]
-    public class DeleteSiteTests : SiteTestBase
+    public class AndFlagIsNotSet : SiteTestBase
     {
-
         protected override void Given()
         {
             DeleteExistingSite();
@@ -24,17 +23,15 @@ namespace MiniWebDeploy.Deployer.IntegrationTests
             var deleteSite = new DeleteExistingSite(manager);
 
             var cfg = new InstallationConfiguration(Environment.CurrentDirectory, null);
-            cfg.WithSiteName(SiteName);
-            cfg.AndDeleteExistingSite();
+            cfg.WithSiteName("SiteOtherNameWhichShouldNotBeCreated");
 
             deleteSite.BeforeInstallation(cfg);
         }
 
         [Test]
-        public void ExistingSiteIsDeleted()
+        public void ExistingSiteIsNotDeleted()
         {
-            Assert.Null(new ServerManager().Sites.SingleOrDefault(x => x.Name == SiteName));
+            Assert.NotNull(new ServerManager().Sites.SingleOrDefault(x => x.Name == SiteName));
         }
     }
-
 }
