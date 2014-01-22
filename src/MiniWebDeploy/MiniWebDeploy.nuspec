@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>MiniWebDeploy</id>
+    <version>0.0.0</version>
+    <authors>Jaimal Chohan</authors>
+    <owners>Jaimal Chohan</owners>
+    <licenseUrl>https://github.com/jaimalchohan/mini-web-deploy/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/jaimalchohan/mini-web-deploy</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A really simple website deployment tool providing an easy to understand and discoverable wrapper around the Microsoft.Web.Administration assembly and additional helpers for common deployment tasks.</description>
+  </metadata>
+  <files>
+    <file src="..\..\out\MiniWebDeploy.exe" target="tools" />
+  </files>
+</package>
