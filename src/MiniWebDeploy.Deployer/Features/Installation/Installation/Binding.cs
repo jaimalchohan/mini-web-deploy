@@ -18,7 +18,6 @@
                     ? _port.Value
                     : _protocol.Equals("http") ? 80 : 443;
             }
-            private set { _port = value; }
         }
 
         public Binding()
