@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status?id=j3rx0d344lurnnuk)](https://ci.appveyor.com/project/mini-web-deploy)
+
 #MiniWebDeploy
 
 A really simple website deployment tool providing an easy to understand and discoverable wrapper around the Microsoft.Web.Administration assembly and additional helpers for common deployment tasks.
