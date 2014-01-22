@@ -7,7 +7,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation.Configuration
 {
     public class ConfigureAdditionalDirectories : ConfigurationTaskBase
     {
-        private IDirectory _directory;
+        private readonly IDirectory _directory;
 
         public ConfigureAdditionalDirectories(IServerManager serverManager, IDirectory directory)
             : base(serverManager)

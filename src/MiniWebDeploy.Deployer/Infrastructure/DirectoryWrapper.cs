@@ -8,5 +8,10 @@ namespace MiniWebDeploy.Deployer.Infrastructure
         {
             Directory.CreateDirectory(directory);
         }
+
+        public bool Exists(string directory)
+        {
+            return Directory.Exists(directory);
+        }
     }
 }

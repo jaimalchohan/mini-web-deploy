@@ -33,7 +33,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
             {
                 new ConfigureAppPool(_serverManager),
                 new ConfigureBindings(_serverManager),
-                new ConfigureLogging(_serverManager),
+                new ConfigureLogging(_serverManager, _directory),
                 new ConfigureAdditionalDirectories(_serverManager, _directory)
             };
         }
