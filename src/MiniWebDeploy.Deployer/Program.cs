@@ -5,6 +5,7 @@ using MiniWebDeploy.Deployer.Features.Discovery;
 using MiniWebDeploy.Deployer.Features.Installation;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
 using System.Diagnostics;
+using MiniWebDeploy.Deployer.Infrastructure;
 
 namespace MiniWebDeploy.Deployer
 {
@@ -29,7 +30,7 @@ namespace MiniWebDeploy.Deployer
 
             using (var serverManager = new ServerManagerWrapper())
             {
-                new SiteDeployer(serverManager, deploymentManifest.InstallationConfiguration).Deploy();
+                new SiteDeployer(serverManager, deploymentManifest.InstallationConfiguration, new DirectoryWrapper()).Deploy();
             }
         }
     }

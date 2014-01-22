@@ -1,6 +1,7 @@
 ﻿using MiniWebDeploy.Deployer.Features.Installation.Configuration;
 using MiniWebDeploy.Deployer.Features.Installation.Installation;
 using MiniWebDeploy.Deployer.Features.Installation.PreInstallation;
+using MiniWebDeploy.Deployer.Infrastructure;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
 
 namespace MiniWebDeploy.Deployer.Features.Installation
@@ -9,15 +10,17 @@ namespace MiniWebDeploy.Deployer.Features.Installation
     {
         private readonly IServerManager _serverManager;
         private readonly InstallationConfiguration _installationConfiguration;
-       
+        private readonly IDirectory _directory;
+
         private readonly PreInstallationTaskList _preInstall;
         private readonly CreateSite _installation;
         private readonly ConfigurationTaskList _configuration;
 
-        public SiteDeployer(IServerManager serverManager, InstallationConfiguration installationConfiguration)
+        public SiteDeployer(IServerManager serverManager, InstallationConfiguration installationConfiguration, IDirectory directory)
         {
             _serverManager = serverManager;
             _installationConfiguration = installationConfiguration;
+            _directory = directory;
 
             _preInstall = new PreInstallationTaskList
             {
@@ -31,7 +34,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
                 new ConfigureAppPool(_serverManager),
                 new ConfigureBindings(_serverManager),
                 new ConfigureLogging(_serverManager),
-                new ConfigureAdditionalDirectories(_serverManager)
+                new ConfigureAdditionalDirectories(_serverManager, _directory)
             };
         }
 
