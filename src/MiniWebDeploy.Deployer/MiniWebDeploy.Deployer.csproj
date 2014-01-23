@@ -76,6 +76,8 @@
     <Compile Include="Features\Installation\PreInstallation\PreInstallationTaskBase.cs" />
     <Compile Include="Features\Installation\SiteDeployer.cs" />
     <Compile Include="Features\Installation\InstallationConfiguration.cs" />
+    <Compile Include="Infrastructure\IDirectory.cs" />
+    <Compile Include="Infrastructure\DirectoryWrapper.cs" />
     <Compile Include="Infrastructure\IIS7Plus\IServerManager.cs" />
     <Compile Include="Infrastructure\IIS7Plus\ServerManagerWrapper.cs" />
     <Compile Include="Program.cs" />

@@ -6,7 +6,7 @@ using MiniWebDeploy.Deployer.Features.Installation.PreInstallation;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
 using NUnit.Framework;
 
-namespace MiniWebDeploy.Deployer.IntegrationTests
+namespace MiniWebDeploy.Deployer.IntegrationTests.Features.PreInstallation
 {
     [TestFixture]
     public class AndSiteDoesNotExist : SiteTestBase

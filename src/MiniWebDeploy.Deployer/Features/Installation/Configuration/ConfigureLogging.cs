@@ -2,14 +2,18 @@
 using System.Security.Principal;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
 using Microsoft.Web.Administration;
+using MiniWebDeploy.Deployer.Infrastructure;
 
 namespace MiniWebDeploy.Deployer.Features.Installation.Configuration
 {
     public class ConfigureLogging : ConfigurationTaskBase
     {
-        public ConfigureLogging(IServerManager serverManager)
+        private readonly IDirectory _directory;
+
+        public ConfigureLogging(IServerManager serverManager, IDirectory directory)
             : base(serverManager)
         {
+            _directory = directory;
         }
 
         public override void ConfigureInstalledSite(Site site, InstallationConfiguration configuration)
@@ -21,9 +25,9 @@ namespace MiniWebDeploy.Deployer.Features.Installation.Configuration
                 return;
             }
 
-            if (!Directory.Exists(site.LogFile.Directory))
+            if (!_directory.Exists(site.LogFile.Directory))
             {
-                Directory.CreateDirectory(site.LogFile.Directory);
+                _directory.CreateDirectory(site.LogFile.Directory);
             }
             else
             {

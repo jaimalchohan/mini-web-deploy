@@ -7,7 +7,7 @@ using MiniWebDeploy.Deployer.Features.Installation;
 using Microsoft.Web.Administration;
 using MiniWebDeploy.Deployer.Features.Installation.PreInstallation;
 
-namespace MiniWebDeploy.Deployer.IntegrationTests
+namespace MiniWebDeploy.Deployer.IntegrationTests.Features.PreInstallation
 {
     [TestFixture]
     public class AndSiteExists : SiteTestBase

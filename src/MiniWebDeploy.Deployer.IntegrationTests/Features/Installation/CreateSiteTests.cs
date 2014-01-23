@@ -7,31 +7,38 @@ using MiniWebDeploy.Deployer.Features.Installation;
 using Microsoft.Web.Administration;
 using MiniWebDeploy.Deployer.Features.Installation.PreInstallation;
 
-namespace MiniWebDeploy.Deployer.IntegrationTests
+namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation
 {
     [TestFixture]
-    public class AndFlagIsNotSet : SiteTestBase
+    public class CreateSiteTests : SiteTestBase
     {
+        
         protected override void Given()
         {
-            DeleteExistingSite();
-            CreateExistingSite();
+ 	        DeleteExistingSite();
         }
 
         protected override void When(ServerManagerWrapper manager)
         {
-            var deleteSite = new DeleteExistingSite(manager);
+            var createSite = new CreateSite(manager);
 
             var cfg = new InstallationConfiguration(Environment.CurrentDirectory, null);
-            cfg.WithSiteName("SiteOtherNameWhichShouldNotBeCreated");
+            cfg.WithSiteName(SiteName);
+            cfg.AndAutoStart();
 
-            deleteSite.BeforeInstallation(cfg);
+            createSite.Install(cfg);
         }
 
         [Test]
-        public void ExistingSiteIsNotDeleted()
+        public void NewSiteIsCreated() 
         {
             Assert.NotNull(new ServerManager().Sites.SingleOrDefault(x => x.Name == SiteName));
+        }
+
+        [Test]
+        public void AutoStartIsSet()
+        {
+            Assert.IsTrue(new ServerManager().Sites.SingleOrDefault(x => x.Name == SiteName).ServerAutoStart);
         }
     }
 }
