@@ -12,20 +12,18 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.PreInstallation
     [TestFixture]
     public class AndFlagIsNotSet : SiteTestBase
     {
-        protected override void Given()
+        protected override void Given(InstallationConfiguration installationConfiguration)
         {
-            DeleteExistingSite();
             CreateExistingSite();
+
+            installationConfiguration.WithSiteName("SiteOtherNameWhichShouldNotBeCreated");
         }
 
         protected override void When(ServerManagerWrapper manager)
         {
             var deleteSite = new DeleteExistingSite(manager);
 
-            var cfg = new InstallationConfiguration(Environment.CurrentDirectory, null);
-            cfg.WithSiteName("SiteOtherNameWhichShouldNotBeCreated");
-
-            deleteSite.BeforeInstallation(cfg);
+            deleteSite.BeforeInstallation(InstallationConfiguration);
         }
 
         [Test]

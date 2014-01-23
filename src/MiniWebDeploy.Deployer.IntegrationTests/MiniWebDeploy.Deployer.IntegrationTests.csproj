@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Installation\Configuration\ConfigureBindingsTests.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteDoesNotExist.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndFlagIsNotSet.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteExists.cs" />
@@ -68,9 +69,7 @@
       <Name>MiniWebDeploy</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

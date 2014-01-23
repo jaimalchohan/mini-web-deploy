@@ -12,21 +12,16 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation
     [TestFixture]
     public class CreateSiteTests : SiteTestBase
     {
-        
-        protected override void Given()
+
+        protected override void Given(InstallationConfiguration installationConfiguration)
         {
- 	        DeleteExistingSite();
+            installationConfiguration.AndAutoStart();
         }
 
         protected override void When(ServerManagerWrapper manager)
         {
             var createSite = new CreateSite(manager);
-
-            var cfg = new InstallationConfiguration(Environment.CurrentDirectory, null);
-            cfg.WithSiteName(SiteName);
-            cfg.AndAutoStart();
-
-            createSite.Install(cfg);
+            createSite.Install(InstallationConfiguration);
         }
 
         [Test]

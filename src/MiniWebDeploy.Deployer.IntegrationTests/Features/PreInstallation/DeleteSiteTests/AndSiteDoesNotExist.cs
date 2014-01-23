@@ -11,20 +11,17 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.PreInstallation
     [TestFixture]
     public class AndSiteDoesNotExist : SiteTestBase
     {
-        protected override void Given()
+        protected override void Given(InstallationConfiguration installationConfiguration)
         {
-            DeleteExistingSite();
+            installationConfiguration = new InstallationConfiguration(Environment.CurrentDirectory, null);
+            installationConfiguration.AndDeleteExistingSite();
         }
 
         protected override void When(ServerManagerWrapper manager)
         {
             var deleteSite = new DeleteExistingSite(manager);
 
-            var cfg = new InstallationConfiguration(Environment.CurrentDirectory, null);
-            cfg.WithSiteName(SiteName);
-            cfg.AndDeleteExistingSite();
-
-            deleteSite.BeforeInstallation(cfg);
+            deleteSite.BeforeInstallation(InstallationConfiguration);
         }
 
         [Test]

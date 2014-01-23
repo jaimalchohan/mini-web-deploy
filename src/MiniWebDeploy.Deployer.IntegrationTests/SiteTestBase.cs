@@ -1,4 +1,5 @@
 ﻿using Microsoft.Web.Administration;
+using MiniWebDeploy.Deployer.Features.Installation;
 using MiniWebDeploy.Deployer.Infrastructure.IIS7Plus;
 using NUnit.Framework;
 using System;
@@ -9,11 +10,17 @@ namespace MiniWebDeploy.Deployer.IntegrationTests
     public class SiteTestBase
     {
         protected string SiteName = "MiniWebDeployIntegrationTestSite";
+        protected InstallationConfiguration InstallationConfiguration { get; private set; }
 
         [SetUp]
         public void SetUp()
         {
-            Given();
+            DeleteExistingSite();
+
+            InstallationConfiguration = new InstallationConfiguration(Environment.CurrentDirectory, null);
+            InstallationConfiguration.WithSiteName(SiteName);
+
+            Given(InstallationConfiguration);
 
             using (var manager = new ServerManagerWrapper())
             {
@@ -29,7 +36,7 @@ namespace MiniWebDeploy.Deployer.IntegrationTests
             DeleteExistingSite();
         }
 
-        protected virtual void Given()
+        protected virtual void Given(InstallationConfiguration installationConfiguration)
         {
 
         }
