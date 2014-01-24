@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\Installation\Configuration\ConfigureBindingsTests.cs" />
+    <Compile Include="Features\Installation\Configuration\WhenNoBindingConfiguration.cs" />
+    <Compile Include="Features\Installation\Configuration\WhenValidBindingConfiguration.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteDoesNotExist.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndFlagIsNotSet.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteExists.cs" />
