@@ -57,6 +57,7 @@
     <Compile Include="Fakes\TestInstaller.cs" />
     <Compile Include="Features\Installation\BindingTests.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureAdditionalDirectoriesTests.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPoolTests.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureBindingsTests.cs" />
     <Compile Include="Features\Installation\InstallationConfigurationTests.cs" />
     <Compile Include="Features\Discovery\LoadAnAssemblyTests.cs" />

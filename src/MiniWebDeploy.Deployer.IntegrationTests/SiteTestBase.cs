@@ -9,7 +9,8 @@ namespace MiniWebDeploy.Deployer.IntegrationTests
 {
     public class SiteTestBase
     {
-        protected string SiteName = "MiniWebDeployIntegrationTestSite";
+        protected readonly string SiteName = "MiniWebDeployIntegrationTestSite";
+        protected readonly string AppPoolName = "MiniWebDeployIntegrationTestSiteAppPool";
         protected InstallationConfiguration InstallationConfiguration { get; private set; }
 
         [SetUp]
@@ -19,6 +20,7 @@ namespace MiniWebDeploy.Deployer.IntegrationTests
 
             InstallationConfiguration = new InstallationConfiguration(Environment.CurrentDirectory, null);
             InstallationConfiguration.WithSiteName(SiteName);
+            InstallationConfiguration.WithAppPool(AppPoolName);
 
             Given(InstallationConfiguration);
 
@@ -55,15 +57,23 @@ namespace MiniWebDeploy.Deployer.IntegrationTests
                 if (existing != null)
                     server.Sites.Remove(existing);
 
+                var existingAppPool = server.ApplicationPools.SingleOrDefault(x => x.Name == AppPoolName);
+
+                if (existingAppPool != null)
+                    server.ApplicationPools.Remove(existingAppPool);
+
                 server.CommitChanges();
             }
         }
 
-        protected void CreateExistingSite()
+        protected void CreateExistingSite(long? customQueueLength = null)
         {
             using (var server = new ServerManager())
             {
-                server.Sites.Add(SiteName, Environment.CurrentDirectory, 999);
+                var site = server.Sites.Add(SiteName, Environment.CurrentDirectory, 999);
+                var appPool = server.ApplicationPools.Add(AppPoolName);
+                appPool.QueueLength = customQueueLength ?? appPool.QueueLength;
+                site.ApplicationDefaults.ApplicationPoolName = AppPoolName;
                 server.CommitChanges();
             }
         }

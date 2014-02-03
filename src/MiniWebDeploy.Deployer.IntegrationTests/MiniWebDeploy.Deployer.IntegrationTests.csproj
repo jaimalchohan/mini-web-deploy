@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenExistingAppPool.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenDeletingExistingAppPool.cs" />
     <Compile Include="Features\Installation\Configuration\WhenNoBindingConfiguration.cs" />
     <Compile Include="Features\Installation\Configuration\WhenValidBindingConfiguration.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteDoesNotExist.cs" />
