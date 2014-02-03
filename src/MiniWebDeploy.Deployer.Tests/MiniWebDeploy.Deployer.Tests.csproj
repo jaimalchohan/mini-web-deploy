@@ -55,6 +55,7 @@
     <Compile Include="Features\Discovery\AssemblyDetailsTests.cs" />
     <Compile Include="Features\Discovery\ConfiguredInstallationManifestTests.cs" />
     <Compile Include="Fakes\TestInstaller.cs" />
+    <Compile Include="Features\Installation\PreInstallationTaskListTests.cs" />
     <Compile Include="Features\Installation\ConfigurationTaskListTests.cs" />
     <Compile Include="Features\Installation\BindingTests.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureAdditionalDirectoriesTests.cs" />
