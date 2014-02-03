@@ -13,7 +13,6 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.PreInstallation
     {
         protected override void Given(InstallationConfiguration installationConfiguration)
         {
-            installationConfiguration = new InstallationConfiguration(Environment.CurrentDirectory, null);
             installationConfiguration.AndDeleteExistingSite();
         }
 
