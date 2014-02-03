@@ -31,11 +31,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation.Configuration
             }
             else
             {
-                var account = new NTAccount(WindowsIdentity.GetCurrent().Name);
-                var existingDirectory = new DirectoryInfo(site.LogFile.Directory);
-                var existingDirectorySecurity = existingDirectory.GetAccessControl();
-                existingDirectorySecurity.SetOwner(account);
-                existingDirectory.SetAccessControl(existingDirectorySecurity);
+                _directory.ElevatePermissions(site.LogFile.Directory);
             }
         }
 

@@ -36,6 +36,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.2.1312.1622\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -50,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenExistingAppPool.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenDeletingExistingAppPool.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureLogging\WhenCreatingWithElevatedPermissions_AndExistingDirectory.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureLogging\WhenCreatingWithElevatedPermissions.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureLogging\WhenNotCreatingWithElevatedPermissions.cs" />
     <Compile Include="Features\Installation\Configuration\WhenNoBindingConfiguration.cs" />
     <Compile Include="Features\Installation\Configuration\WhenValidBindingConfiguration.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteDoesNotExist.cs" />

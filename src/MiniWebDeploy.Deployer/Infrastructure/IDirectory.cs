@@ -4,5 +4,6 @@
     {
         void CreateDirectory(string directory);
         bool Exists(string directory);
+        void ElevatePermissions(string p);
     }
 }
