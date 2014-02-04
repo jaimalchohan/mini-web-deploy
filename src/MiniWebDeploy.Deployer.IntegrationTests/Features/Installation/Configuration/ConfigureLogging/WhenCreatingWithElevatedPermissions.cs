@@ -16,10 +16,14 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
     {
         private Site _site;
         private Mock<IDirectory> _directoryMock;
+        public string _directory;
 
         protected override void Given(InstallationConfiguration installationConfiguration)
         {
+            _directory = "c:\\mockdir";
+
             installationConfiguration.WithLogFile()
+                .AndDirectory(_directory)
                 .AndCreateDirectoryWithElevatedPermissions();
 
             _directoryMock = new Mock<IDirectory>();
@@ -38,7 +42,9 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
         [Test]
         public void DirectoryCreated()
         {
-            _directoryMock.Verify(x => x.CreateDirectory(It.IsAny<string>()), Times.Once);
+            _directoryMock.Verify(x => x.CreateDirectory(_directory), Times.Once);
         }
+
+        
     }
 }

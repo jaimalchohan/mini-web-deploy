@@ -44,10 +44,12 @@ namespace MiniWebDeploy.Deployer.Features.Installation.Configuration
             }
 
             var newPool = ServerManager.ApplicationPools.Add(configuration.AppPoolName);
+
             newPool.ManagedRuntimeVersion = string.IsNullOrEmpty(configuration.AppPoolManagedRuntimeVersion)
                 ? newPool.ManagedRuntimeVersion
                 : configuration.AppPoolManagedRuntimeVersion;
-            newPool.SetAttributeValue("startMode", 1);
+
+            newPool.SetAttributeValue("startMode", (int)configuration.AppPoolStartMode);
         }
     }
 }

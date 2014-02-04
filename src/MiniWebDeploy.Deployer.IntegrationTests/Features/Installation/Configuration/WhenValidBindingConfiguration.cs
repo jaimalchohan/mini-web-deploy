@@ -13,13 +13,13 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
     public class WhenValidBindingConfiguration : SiteTestBase
     {
         private Site _site;
-        private IEnumerable<Microsoft.Web.Administration.Binding> _existingBindings;
 
         protected override void Given(InstallationConfiguration installationConfiguration)
         {
             installationConfiguration
                 .AndHttpBinding("myhost1")
-                .AndHttpBinding("myhost2", "8.8.8.8");
+                .AndHttpBinding("myhost2", "8.8.8.8")
+                .AndDefaultHttpBinding();
         }
 
         protected override void When(ServerManagerWrapper manager)
@@ -32,9 +32,9 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
         }
 
         [Test]
-        public void TwoBindingsAreCreated()
+        public void ThreeBindingsAreCreated()
         {
-            Assert.AreEqual(2, _site.Bindings.ToArray().Length);
+            Assert.AreEqual(3, _site.Bindings.ToArray().Length);
         }
 
         [Test]
@@ -47,6 +47,12 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
         public void MyHost2BindingHasBeenCreated()
         {
             Assert.That(_site.Bindings.Any(x => x.Host == "myhost2" && x.EndPoint.Address.ToString() == "8.8.8.8"));
+        }
+
+        [Test]
+        public void DefaultBindingHasBeenCreated()
+        {
+            Assert.That(_site.Bindings.Any(x => string.IsNullOrEmpty(x.Host) && x.EndPoint.Address.ToString() == "0.0.0.0"));
         }
     }
 }

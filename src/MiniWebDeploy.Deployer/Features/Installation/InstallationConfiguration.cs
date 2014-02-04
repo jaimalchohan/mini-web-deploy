@@ -5,7 +5,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
 {
     public class InstallationConfiguration : IInstallationConfiguration, ISiteFactory, IAppPoolFactory, ILogFileFactory
     {
-        private string _startMode = "AlwaysRunning";
+        private AppPoolStartMode _startMode = AppPoolStartMode.AlwaysRunning;
         private string _siteName = "Default Website";
 
         public string SiteName { get { return _siteName; } }
@@ -17,7 +17,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
         public string AppPoolName { get; private set; }
         public string AppPoolManagedRuntimeVersion { get; private set; }
         public bool AppPoolDeleteExisting { get; private set; }
-        public string AppPoolStartMode { get { return _startMode; } }
+        public AppPoolStartMode AppPoolStartMode { get { return _startMode; } }
         
         public string LogFileDirectory { get; private set; }
         public bool LogFileCreateDirectoryWithElevatedPermissions { get; private set; }
@@ -91,7 +91,7 @@ namespace MiniWebDeploy.Deployer.Features.Installation
 
         public IAppPoolFactory AndStartOnDemand()
         {
-            _startMode = "OnDemand";
+            _startMode = AppPoolStartMode.OnDemand;
             return this;
         }
 

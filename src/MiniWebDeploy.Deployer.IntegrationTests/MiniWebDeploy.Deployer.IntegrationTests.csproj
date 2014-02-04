@@ -51,7 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenExistingAppPool.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenCreatingAppPoolWithDefaults.cs" />
+    <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenNotDeletingExistingAppPool.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureAppPool\WhenDeletingExistingAppPool.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureLogging\WhenCreatingWithElevatedPermissions_AndExistingDirectory.cs" />
     <Compile Include="Features\Installation\Configuration\ConfigureLogging\WhenCreatingWithElevatedPermissions.cs" />

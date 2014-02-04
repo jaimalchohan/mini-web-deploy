@@ -20,6 +20,7 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
         protected override void Given(InstallationConfiguration installationConfiguration)
         {
             installationConfiguration.WithLogFile()
+                .AndDirectory("c:\\mockdir")
                 .AndCreateDirectoryWithElevatedPermissions();
 
             _directoryMock = new Mock<IDirectory>();

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Web.Administration;
 using MiniWebDeploy.Deployer.Features.Installation;
@@ -10,14 +10,16 @@ using NUnit.Framework;
 namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configuration
 {
     [TestFixture]
-    public class WhenNotDeletingExistingAppPool : SiteTestBase
+    public class WhenCreatingAppPoolWithDefaults : SiteTestBase
     {
-        private int _customQueueLength;
-        
         protected override void Given(InstallationConfiguration installationConfiguration)
         {
-            _customQueueLength = 999;
-            CreateExistingSite(_customQueueLength);
+            DeleteExistingSite();
+            CreateExistingSite();
+
+            installationConfiguration
+                .WithAppPool(AppPoolName)
+                .AndDeleteExistingAppPool();
         }
 
         protected override void When(ServerManagerWrapper manager)
@@ -29,12 +31,12 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation.Configur
         }
 
         [Test]
-        public void AppPoolIsNotDeleted_ByComparingQueueLength()
+        public void DefaultAppPoolIsAlwaysRunning()
         {
             using (var manager = new ServerManagerWrapper())
             {
-                var newAppPoolQueueLength = manager.ApplicationPools.Single(x => x.Name == AppPoolName).QueueLength;
-                Assert.AreEqual(_customQueueLength, newAppPoolQueueLength);
+                var startMode = manager.ApplicationPools.Single(x => x.Name == AppPoolName).GetAttributeValue("startMode");
+                Assert.AreEqual(AppPoolStartMode.AlwaysRunning, (AppPoolStartMode)startMode);
             }
         }
     }
