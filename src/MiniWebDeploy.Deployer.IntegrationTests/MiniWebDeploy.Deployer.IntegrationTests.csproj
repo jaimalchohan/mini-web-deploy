@@ -59,6 +59,7 @@
     <Compile Include="Features\Installation\Configuration\ConfigureLogging\WhenNotCreatingWithElevatedPermissions.cs" />
     <Compile Include="Features\Installation\Configuration\WhenNoBindingConfiguration.cs" />
     <Compile Include="Features\Installation\Configuration\WhenValidBindingConfiguration.cs" />
+    <Compile Include="Features\Installation\SiteDeployerTests.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteDoesNotExist.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndFlagIsNotSet.cs" />
     <Compile Include="Features\PreInstallation\DeleteSiteTests\AndSiteExists.cs" />

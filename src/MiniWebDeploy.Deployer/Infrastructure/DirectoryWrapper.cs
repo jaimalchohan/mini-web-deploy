@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Security.Principal;
 
 namespace MiniWebDeploy.Deployer.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     public class DirectoryWrapper : IDirectory
     {
         public void CreateDirectory(string directory)

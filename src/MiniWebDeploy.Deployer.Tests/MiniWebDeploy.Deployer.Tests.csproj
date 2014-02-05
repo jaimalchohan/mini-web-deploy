@@ -66,6 +66,7 @@
     <Compile Include="Features\Discovery\DiscoverAssembliesThatHaveInstallersTests.cs" />
     <Compile Include="Features\Discovery\PathScannerTests.cs" />
     <Compile Include="Features\Discovery\SiteInstallerExtensionsTests.cs" />
+    <Compile Include="Features\Installation\SiteDeployerTests.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
