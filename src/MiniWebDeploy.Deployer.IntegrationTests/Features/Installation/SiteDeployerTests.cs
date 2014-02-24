@@ -25,7 +25,11 @@ namespace MiniWebDeploy.Deployer.IntegrationTests.Features.Installation
 
             _serverManager.SetupGet(x => x.Sites).Returns(new ServerManager().Sites);
 
-            _siteDeployer = new SiteDeployer(_serverManager.Object, new InstallationConfiguration(null, null), directory.Object);
+            var cfg = new InstallationConfiguration(null, null);
+            cfg.WithSiteName("SiteDeployerIntegrationTest");
+
+
+            _siteDeployer = new SiteDeployer(_serverManager.Object, cfg, directory.Object);
         }
 
         [Test]
