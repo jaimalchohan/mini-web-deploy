@@ -52,3 +52,7 @@ And that's all,  the executable will scan your site for any class which implemen
 
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jaimalchohan/mini-web-deploy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
