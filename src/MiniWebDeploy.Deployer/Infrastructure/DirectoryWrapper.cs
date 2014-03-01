@@ -4,7 +4,6 @@ using System.Security.Principal;
 
 namespace MiniWebDeploy.Deployer.Infrastructure
 {
-    [ExcludeFromCodeCoverage]
     public class DirectoryWrapper : IDirectory
     {
         public void CreateDirectory(string directory)

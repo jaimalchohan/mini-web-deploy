@@ -51,7 +51,6 @@ namespace MiniWebDeploy.Deployer.Features.Discovery
             return binariesWithInstallersInThem;
         }
 
-        [ExcludeFromCodeCoverage]
         private Assembly AssemblyScanErrorHandler(object sender, ResolveEventArgs rargs)
         {
             try
