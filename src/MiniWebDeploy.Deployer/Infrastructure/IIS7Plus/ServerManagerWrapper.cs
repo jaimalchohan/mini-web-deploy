@@ -2,7 +2,7 @@
 
 namespace MiniWebDeploy.Deployer.Infrastructure.IIS7Plus
 {
-    public class ServerManagerWrapper : IServerManager
+    public sealed class ServerManagerWrapper : IServerManager
     {
         private readonly ServerManager _inner;
 

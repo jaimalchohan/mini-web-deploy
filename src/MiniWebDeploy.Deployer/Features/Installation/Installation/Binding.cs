@@ -4,8 +4,7 @@
     {
         private readonly string _ipAddress = "*";
         private const string _protocol = "http";
-        private int? _port;
-
+        
         public string Protocol { get { return _protocol; } }
         public string Host { get; private set; }
         public string IPAddress { get { return _ipAddress; } }
@@ -14,9 +13,7 @@
         {
             get
             {
-                return _port.HasValue
-                    ? _port.Value
-                    : _protocol.Equals("http") ? 80 : 443;
+                return _protocol.Equals("http") ? 80 : 443;
             }
         }
 
