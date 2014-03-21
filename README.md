@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/jaimalchohan/mini-web-deploy.png?label=ready)](https://waffle.io/jaimalchohan/mini-web-deploy)
-[![Build status](https://ci.appveyor.com/api/projects/status?id=j3rx0d344lurnnuk)](https://ci.appveyor.com/project/mini-web-deploy)
+[![Build status](https://ci.appveyor.com/api/projects/status/j3rx0d344lurnnuk)](https://ci.appveyor.com/project/jaimalchohan/mini-web-deploy)
 
 #MiniWebDeploy
 
