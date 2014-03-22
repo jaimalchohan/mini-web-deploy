@@ -1,6 +1,6 @@
 properties {
     $base_dir  = resolve-path .
-    $version = "0.7.0"
+    $version = "0.8.0"
     $sln_file = "$base_dir\MiniWebDeploy.sln" 
     $package_dir = "$base_dir\out\pkg"
     $nuspec = "MiniWebDeploy.nuspec"
