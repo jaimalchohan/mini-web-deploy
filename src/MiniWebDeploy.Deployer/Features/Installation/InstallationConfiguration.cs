@@ -123,5 +123,17 @@ namespace MiniWebDeploy.Deployer.Features.Installation
             SitePath = sitePath;
             return this;
         }
+
+        public ISiteFactory AndHttpsBinding(string host)
+        {
+            Bindings.Add(new Binding(host, true));
+            return this;
+        }
+
+        public ISiteFactory AndHttpsBinding(string host, string ipAddress)
+        {
+            Bindings.Add(new Binding(host, ipAddress, true));
+            return this;
+        }
     }
 }

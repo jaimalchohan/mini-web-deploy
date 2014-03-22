@@ -21,6 +21,19 @@
         ISiteFactory AndHttpBinding(string host, string ipAddress);
 
         /// <summary>
+        /// Create a port 443 https binding for the specfied hostname and no specfic IP address
+        /// </summary>
+        /// <param name="host">Hostname e.g. www.example.com</param>
+        ISiteFactory AndHttpsBinding(string host);
+
+        /// <summary>
+        /// Create a port 443 https binding for the specfied hostname and IP address
+        /// </summary>
+        /// <param name="host">Hostname e.g. www.example.com</param>
+        /// <param name="ipAddress">IPv4 address e.g. 192.168.0.1</param>
+        ISiteFactory AndHttpsBinding(string host, string ipAddress);
+
+        /// <summary>
         /// Starts the webiste on creation
         /// </summary>
         ISiteFactory AndAutoStart();
