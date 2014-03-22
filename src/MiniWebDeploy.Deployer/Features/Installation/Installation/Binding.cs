@@ -3,9 +3,19 @@
     public class Binding
     {
         private readonly string _ipAddress = "*";
-        private const string _protocol = "http";
-        
-        public string Protocol { get { return _protocol; } }
+        private bool _sslEnabled = false;
+
+        public string Protocol 
+        { 
+            get 
+            {
+                if (_sslEnabled)
+                    return "https";
+                else
+                    return "http";
+            } 
+        }
+
         public string Host { get; private set; }
         public string IPAddress { get { return _ipAddress; } }
 
@@ -13,8 +23,11 @@
         {
             get
             {
-                return _protocol.Equals("http") ? 80 : 443;
-            }
+                if (_sslEnabled)
+                    return 443;
+                else
+                    return 80;
+            } 
         }
 
         public Binding()
@@ -31,6 +44,18 @@
         {
             Host = host;
             _ipAddress = ipAddress;
+        }
+
+        public Binding(string host, string ipAddress, bool ssl)
+            : this(host, ipAddress)
+        {
+            _sslEnabled = ssl;
+        }
+
+        public Binding(string host, bool ssl)
+            : this(host)
+        {
+            _sslEnabled = ssl;
         }
     }
 }

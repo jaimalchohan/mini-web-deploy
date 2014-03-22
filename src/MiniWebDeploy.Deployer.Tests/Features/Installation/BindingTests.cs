@@ -40,5 +40,26 @@ namespace MiniWebDeploy.Deployer.Tests.Features.Installation
             var binding = new Binding("myhost", "192.168.0.1");
             Assert.AreEqual("192.168.0.1", binding.IPAddress);
         }
+
+        [Test]
+        public void DefaultSslPort443IsSetWhenSpecifyingIp()
+        {
+            var binding = new Binding("myhost", "192.168.0.1", true);
+            Assert.AreEqual(443, binding.Port);
+        }
+
+        [Test]
+        public void DefaultSslPort443IsSetWhenSpecifyingHost()
+        {
+            var binding = new Binding("myhost", true);
+            Assert.AreEqual(443, binding.Port);
+        }
+
+        [Test]
+        public void HttpsProtocolIsSetWhenSettingSsl()
+        {
+            var binding = new Binding("myhost", true);
+            Assert.AreEqual("https", binding.Protocol);
+        }
     }
 }
